@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f7f8f7;--surface:#ffffff;--ink:#2b3233;--muted:#667072;--line:#dde3e1;--accent:#5f7f86;--accent-soft:#e6eeee;
+  --good:#2f6b3f;--good-soft:#e4f1e7;--bad:#97353a;--bad-soft:#f7e3e3;--warn:#8a5420;--warn-soft:#f8e9dc;
+  --term:#f1f4f3;
+  --display:"Spectral",Georgia,serif;--body:"Public Sans",system-ui,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;--term:#1f2627;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;--term:#1f2627;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)} h2{font-size:1.4rem} h3{font-size:1.08rem}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header,section{display:flex;flex-direction:column;gap:14px}
+ul.points,ol.points{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px}
+.points li{max-width:68ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{padding:14px 16px;border-top:2px solid var(--accent);background:var(--surface)}
+.stat b{display:block;font-family:var(--display);font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:.9rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.84rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:4px;padding:14px 18px}
+.callout p{max-width:none}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.p-good{background:var(--good-soft);color:var(--good)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-warn{background:var(--warn-soft);color:var(--warn)}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+/* Session steps: numbered cards, each with the prompt typed and what Claude Code did */
+.steps{display:flex;flex-direction:column;gap:14px;counter-reset:step}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.step h3{display:flex;gap:10px;align-items:baseline}
+.step h3::before{counter-increment:step;content:counter(step);font-family:var(--body);font-size:.8rem;font-weight:700;color:var(--accent);
+  border:1.5px solid var(--accent);border-radius:999px;min-width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.prompt{font-family:var(--mono);font-size:.88rem;background:var(--term);border:1px solid var(--line);border-radius:4px;padding:10px 12px;overflow-wrap:anywhere}
+.prompt::before{content:"> ";color:var(--accent);font-weight:700}
+.step ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{font-size:.8rem;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:.82rem;padding:2px 9px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Claude Code · sample</p>
+    <h1>Can the new CRM's API feed our field reports? A feasibility check in Claude Code</h1>
+    <p class="lede">A commercial roofing client was moving onto Terial - Roofing CRM, and wanted its daily field reports and sales reports to come out of Terial automatically. Before anyone scoped a build, I used Claude Code to find the client's code repository, check 66 report fields against the documented Terial API, research how Terial handles custom fields, and draft the request for live data access.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Ran the feasibility check in Claude Code with the GitHub CLI, checking each requested field against the client's existing code and the CRM's API.</p><p style="margin:0;max-width:none"><b>Outcome:</b> I created an HTML summary for the client and we reviewed it together: what was feasible, the order in which the requests would be implemented, and why the remaining requests couldn't be done.</p></div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><b>66</b><span>daily field report fields checked against the API</span></div>
+    <div class="stat"><b>0</b><span>available as-is, found before any build was scoped</span></div>
+    <div class="stat"><b>3</b><span>candidate client repos found, the right one confirmed with me</span></div>
+    <div class="stat"><b>1</b><span>data-handling rule saved to Claude's memory</span></div>
+  </div>
+
+  <section aria-labelledby="session">
+    <h2 id="session">How the session went</h2>
+    <p>Each step below shows what I typed and what Claude Code did with it. I steered, and Claude Code did the searching, reading and cross-checking.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>Find and connect to the client's repository</h3>
+        <div class="prompt">connect to the company repository for [client]</div>
+        <ul>
+          <li>Checked my GitHub sign-in and searched the company's GitHub organization with the GitHub CLI.</li>
+          <li>Found three repositories for the client and <b>asked me which one</b> instead of guessing: a data extractor, a reporting research project and a card-export workflow.</li>
+          <li>Cloned the reporting repository and summarized it: which reports can be built, which columns have no data source, and what's blocking the build.</li>
+        </ul>
+        <div class="chips"><span>GitHub CLI</span><span>Clarifying question</span><span>Repo summary</span></div>
+      </div>
+
+      <div class="step">
+        <h3>Check 66 daily report fields against the API</h3>
+        <div class="prompt">can you tell me if the following fields are found in Terial API … (66 fields pasted from the field report form)</div>
+        <ul>
+          <li>Read the repository's API research report, which was built from live test calls to Terial's API.</li>
+          <li>Matched every field on the daily report form (crew, weather, man-hours, deliveries, roof maps, photos and a 25-item safety and quality checklist) to what the API actually returns.</li>
+          <li>Separated "loosely related" fields from "not found anywhere," and explained why each related field still wasn't a true match.</li>
+          <li>Flagged the limits honestly: the earlier research never looked for daily-report endpoints, and Terial's full API spec wasn't available to an API key.</li>
+        </ul>
+        <div class="chips"><span>Document analysis</span><span>Field mapping</span><span>Stated limitations</span></div>
+      </div>
+
+      <div class="step">
+        <h3>Research custom fields</h3>
+        <div class="prompt">does terial allow for custom fields</div>
+        <ul>
+          <li>Combined evidence from the repo (a custom fields page exists in Terial's web app, but every API path returned "not found" or a login redirect) with a web search of vendor and directory listings.</li>
+          <li>Answered in one line, <b>"yes in the app, not through the API,"</b> and said what that means for the client's reports.</li>
+          <li>Cited its sources, and noted that a directory listing is marketing copy, not documentation.</li>
+        </ul>
+        <div class="chips"><span>Web search</span><span>Cited sources</span></div>
+      </div>
+
+      <div class="step">
+        <h3>Draft the access request</h3>
+        <div class="prompt">i need (read only) access to [client]'s live Terial account</div>
+        <ul>
+          <li>Explained that the client's Terial admin has to create the access, and identified the right contact from the project files.</li>
+          <li>Drafted the email asking for a read-only API key and a view-only login, and why each is needed.</li>
+          <li>Built in security: asked the client <b>not to email the API key</b>, and suggested a password manager share instead.</li>
+          <li>Offered to save it as an Outlook draft rather than sending anything on my behalf.</li>
+        </ul>
+        <div class="chips"><span>Email draft</span><span>Credential handling</span></div>
+      </div>
+
+      <div class="step">
+        <h3>Apply a data-handling rule, and correct earlier work</h3>
+        <div class="prompt">do not look at [other client]'s repo</div>
+        <ul>
+          <li>Deleted its temporary copy of the other client's repository right away.</li>
+          <li>Saved the rule to its persistent memory, so future sessions won't use that repository for this client.</li>
+          <li>Went back over its earlier answer, found which field mappings had relied on the other repo, and <b>marked those fields "unknown"</b> instead of leaving unsupported answers in place.</li>
+        </ul>
+        <div class="chips"><span>Persistent memory</span><span>Self-correction</span><span>Client data separation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="results">
+    <h2 id="results">What the field check found</h2>
+    <p>The daily field report form has 66 fields. After the correction, the API mapping came out like this:</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Fields</th><th>Result</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Location</td><td><span class="pill p-warn">Related</span></td><td>The job site's city and state are on the property record, if that's what Location means.</td></tr>
+        <tr><td>Total roofing squares installed to date</td><td><span class="pill p-warn">Related</span></td><td>The project has a square footage field, but it's the job's total size (empty in the test account), not squares installed so far.</td></tr>
+        <tr><td>Total man hours</td><td><span class="pill p-warn">Related</span></td><td>Budgeted hours exist only on service tickets, and are empty in the test account.</td></tr>
+        <tr><td>Superintendent, Foreman</td><td><span class="pill p-warn">Related</span></td><td>People appear only as the assigned person on a sales opportunity. There's no crew or role assignment on a project.</td></tr>
+        <tr><td>Beginning and ending date and time, operation notes, comments</td><td><span class="pill p-warn">Unknown</span></td><td>Not covered by the approved research. Needs checking against the live account.</td></tr>
+        <tr><td>Everything else: weather, crew lists and absences, subcontractors, units completed, man-hours used, deliveries, roof maps, photos and every safety and quality checklist item</td><td><span class="pill p-bad">Not found</span></td><td>No daily report, crew, weather, checklist or photo data anywhere in the documented API.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><p><b>Outcome:</b> the team learned that the daily field report couldn't be automated from Terial's API as documented, before anyone scoped or quoted a build. The next steps were concrete: get read-only access to the client's live account, and ask Terial's engineers whether field reports and custom fields can be opened up to the API.</p></div>
+  </section>
+
+  <section aria-labelledby="why">
+    <h2 id="why">Why I use Claude Code for this kind of work</h2>
+    <ul class="points">
+      <li><b>It reads the real source, not a summary.</b> Answers came from the API research and test-call evidence in the repository, so I could trace every claim.</li>
+      <li><b>It asks when the choice is mine.</b> With three possible repositories, it confirmed which one before cloning.</li>
+      <li><b>It says what it doesn't know.</b> Gaps in the research were called out as gaps, not filled in with guesses.</li>
+      <li><b>It follows data-handling rules and remembers them.</b> One instruction removed the other client's data, fixed the affected answers and became a standing rule.</li>
+      <li><b>It doesn't act outward without me.</b> The access request stayed a draft for me to review and send.</li>
+    </ul>
+    <div class="tags"><span>Claude Code</span><span>GitHub CLI</span><span>Terial - Roofing CRM API</span><span>Web search</span><span>Claude memory</span><span>Outlook</span></div>
+  </section>
+
+  <p class="note">The client and the other client are not named, and people's names are removed. Software names are unchanged.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

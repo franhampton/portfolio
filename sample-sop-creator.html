@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOP Creator Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff; --ink:#2b3233; --muted:#667072; --line:#dde3e1;
+  --accent:#5f7f86; --accent-soft:#e6eeee; --field:#ffffff;
+  --display:"Spectral", Georgia, serif; --body:"Public Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1c2122; --surface:#232a2b; --ink:#e3e8e7; --muted:#9aa5a6; --line:#344041;
+  --accent:#8fb0b6; --accent-soft:#2b3637; --field:#1f2627; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c2122; --surface:#232a2b; --ink:#e3e8e7; --muted:#9aa5a6; --line:#344041;
+  --accent:#8fb0b6; --accent-soft:#2b3637; --field:#1f2627; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)}
+h2{font-size:1.35rem}
+p{margin:0;max-width:65ch}
+a{color:var(--accent)}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header{display:flex;flex-direction:column;gap:12px}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+section{display:flex;flex-direction:column;gap:16px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.step{background:var(--surface);border-top:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.step b{font-family:var(--display);color:var(--accent);font-size:1.3rem}
+.step span{font-size:.92rem;color:var(--muted)}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.searchbar{display:flex;gap:8px;flex-wrap:wrap}
+.searchbar input{flex:1;min-width:180px;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);font:inherit;font-size:.95rem}
+button{height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+.results{display:flex;flex-direction:column;gap:8px}
+.card{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:6px;padding:12px 14px;cursor:pointer;background:var(--bg)}
+.card input{margin-top:4px;width:16px;height:16px;accent-color:var(--accent)}
+.card .meta{min-width:0;display:flex;flex-direction:column;gap:2px}
+.card .name{font-weight:600;font-size:.95rem;word-break:break-word}
+.card .snip{font-size:.88rem;color:var(--muted)}
+.card .path{font-size:.78rem;color:var(--muted);font-family:ui-monospace,Menlo,monospace;word-break:break-all}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.count{font-size:.9rem;color:var(--muted)}
+.sop{border:1px solid var(--line);border-radius:6px;padding:24px 26px;background:var(--bg);display:none;flex-direction:column;gap:14px}
+.sop.show{display:flex}
+.sop h3{font-size:1.25rem}
+.sop h4{font-family:var(--body);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:6px 0 0}
+.sop ol,.sop ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.sop li{max-width:65ch}
+.sop table{border-collapse:collapse;width:100%;font-size:.92rem}
+.sop th,.sop td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.sop th{color:var(--muted);font-weight:600}
+.src{font-size:.82rem;color:var(--muted)}
+.status{font-size:.9rem;color:var(--muted)}
+.points{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;color:var(--ink)}
+.points li{max-width:65ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+.tablewrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Sample AI tool</p>
+    <h1>SOP creator</h1>
+    <p class="lede">A Claude tool I built that turns existing company documents into a draft standard operating procedure. It searches SharePoint, lets you pick the source files, and writes the SOP strictly from what those files say.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Built the SOP creator in Claude using the Microsoft 365 connector.</p><p style="margin:0;max-width:none"><b>Outcome:</b> Sent to a client's CFO and HR manager to create standard operating procedures from their SharePoint site, along with a Markdown (.md) file of their branding so every SOP comes out branded.</p></div>
+  </header>
+
+  <section aria-labelledby="how">
+    <h2 id="how">How it works</h2>
+    <div class="steps">
+      <div class="step"><b>1</b><span>Search SharePoint by keyword and file type across connected sites.</span></div>
+      <div class="step"><b>2</b><span>Pick the documents that describe the process: checklists, emails, old procedures.</span></div>
+      <div class="step"><b>3</b><span>The tool reads each file through the Microsoft 365 connector.</span></div>
+      <div class="step"><b>4</b><span>Claude drafts the SOP: purpose, scope, roles, numbered steps and exceptions.</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="try">
+    <h2 id="try">Try the demo</h2>
+    <p class="note">This page runs on sample documents for a fictional company, so no real files are searched.</p>
+    <div class="tool">
+      <div class="searchbar">
+        <input id="q" type="text" value="new vendor setup" aria-label="Search documents">
+        <button id="searchBtn">Search</button>
+      </div>
+      <div id="results" class="results"></div>
+      <div id="toolbar" class="toolbar" hidden>
+        <span class="count" id="count">0 selected</span>
+        <button id="draftBtn" disabled>Draft SOP from selected</button>
+      </div>
+      <p id="status" class="status" hidden></p>
+      <div id="sop" class="sop" aria-live="polite">
+        <h3>SOP: New Vendor Setup</h3>
+        <p class="src">Drafted from the selected source documents. Every step below is supported by at least one source.</p>
+        <h4>Purpose</h4>
+        <p>Make sure every new vendor is verified, insured and set up correctly before the first purchase order is issued.</p>
+        <h4>Scope</h4>
+        <p>Applies to all new material suppliers and subcontractors. Does not cover one-time credit card purchases under $500.</p>
+        <h4>Roles and responsibilities</h4>
+        <div class="tablewrap"><table>
+          <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+          <tbody>
+            <tr><td>Requester</td><td>Submits the vendor request form with the vendor's contact details and reason for use.</td></tr>
+            <tr><td>AP Specialist</td><td>Collects the W-9 and certificate of insurance, and enters the vendor in the accounting system.</td></tr>
+            <tr><td>Controller</td><td>Approves vendors with expected annual spend over $25,000.</td></tr>
+          </tbody>
+        </table></div>
+        <h4>Procedure</h4>
+        <ol>
+          <li>Requester submits the vendor request form.</li>
+          <li>AP Specialist emails the vendor for a signed W-9 and a current certificate of insurance.</li>
+          <li>AP Specialist confirms the insurance meets the minimum limits and lists the company as additional insured.</li>
+          <li>If expected annual spend is over $25,000, the Controller reviews and approves the vendor.</li>
+          <li>AP Specialist creates the vendor record and attaches the W-9 and insurance certificate.</li>
+          <li>AP Specialist sets an insurance expiration reminder 30 days before the policy end date.</li>
+          <li>AP Specialist notifies the requester that the vendor is active and POs can be issued.</li>
+        </ol>
+        <h4>Notes and exceptions</h4>
+        <ul>
+          <li>No purchase orders may be issued to a vendor without a W-9 on file.</li>
+          <li>Expired insurance puts the vendor on hold until a new certificate is received.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="why">
+    <h2 id="why">What makes it reliable</h2>
+    <ul class="points">
+      <li><b>Grounded in sources.</b> The prompt tells Claude to use only what the selected documents support and to keep the SOP short when the sources are thin, rather than invent steps.</li>
+      <li><b>Live company data.</b> It reads real files through the Microsoft 365 connector, so the draft reflects how the business actually works today.</li>
+      <li><b>Consistent structure.</b> Every SOP comes out with the same sections, which makes a whole library easy to read and maintain.</li>
+      <li><b>Human in the loop.</b> The person chooses the sources and reviews the draft before it becomes the official procedure.</li>
+    </ul>
+  </section>
+
+  <p class="note">Built with Claude and the Microsoft 365 connector. Company, people and document names on this page are fictional.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+
+<script>
+const docs = [
+  {name:"Vendor Request Form - Instructions.docx", snip:"Requesters complete the vendor request form with contact details, services provided and the reason for the new vendor…", path:"Accounting/Procedures/Vendor Request Form - Instructions.docx"},
+  {name:"AP Onboarding Checklist.xlsx", snip:"W-9 received · COI received · additional insured confirmed · vendor entered · expiration reminder set…", path:"Accounting/AP/AP Onboarding Checklist.xlsx"},
+  {name:"Insurance Requirements for Subcontractors.pdf", snip:"Minimum general liability limits… company must be listed as additional insured… expired certificates place the vendor on hold…", path:"Risk/Insurance Requirements for Subcontractors.pdf"},
+  {name:"Purchasing Approval Limits.docx", snip:"Vendors with expected annual spend over $25,000 require Controller approval before activation…", path:"Finance/Policies/Purchasing Approval Limits.docx"},
+  {name:"Company Picnic Planning.docx", snip:"Vendor list for food trucks and tents for the summer picnic…", path:"HR/Events/Company Picnic Planning.docx"}
+];
+const sel = new Set();
+const $ = id => document.getElementById(id);
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function search(){
+  sel.clear(); $('sop').classList.remove('show'); $('status').hidden = true;
+  $('results').innerHTML = docs.map((d,i)=>`<label class="card"><input type="checkbox" data-i="${i}"><span class="meta"><span class="name">${esc(d.name)}</span><span class="snip">${esc(d.snip)}</span><span class="path">${esc(d.path)}</span></span></label>`).join('');
+  $('toolbar').hidden = false; update();
+  $('results').querySelectorAll('input').forEach(cb=>cb.addEventListener('change',()=>{const i=+cb.dataset.i; cb.checked?sel.add(i):sel.delete(i); update();}));
+}
+function update(){ $('count').textContent = sel.size + ' selected'; $('draftBtn').disabled = sel.size === 0; }
+function draft(){
+  const s = $('status'); s.hidden = false; $('sop').classList.remove('show');
+  if (sel.has(4) && sel.size === 1){ s.textContent = 'That document does not describe vendor setup, so there is nothing to draft from. Pick a source that covers the process.'; return; }
+  s.textContent = 'Reading ' + sel.size + ' source document' + (sel.size>1?'s':'') + '…';
+  setTimeout(()=>{ s.textContent = 'Drafting SOP…'; },700);
+  setTimeout(()=>{ s.hidden = true; $('sop').classList.add('show'); $('sop').scrollIntoView({behavior:'smooth',block:'start'}); },1500);
+}
+$('searchBtn').addEventListener('click', search);
+$('q').addEventListener('keydown', e=>{ if(e.key==='Enter') search(); });
+$('draftBtn').addEventListener('click', draft);
+search();
+</script>
+</body>
+</html>

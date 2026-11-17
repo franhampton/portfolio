@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Skills Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f7f8f7;--surface:#ffffff;--ink:#2b3233;--muted:#667072;--line:#dde3e1;--accent:#5f7f86;--accent-soft:#e6eeee;--code:#f1f4f3;
+  --display:"Spectral",Georgia,serif;--body:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;--code:#1f2627;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;--code:#1f2627;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:32px}
+h1,h2{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)} h2{font-size:1.4rem}
+p{margin:0;max-width:68ch}
+.back{font-size:.9rem;font-weight:600;text-decoration:none;color:var(--accent)}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header{display:flex;flex-direction:column;gap:12px}
+.skill{background:var(--surface);border:1px solid var(--line);border-top:2px solid var(--accent);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.skhead{display:flex;flex-direction:column;gap:4px}
+.file{font-family:ui-monospace,Menlo,monospace;font-size:.8rem;color:var(--muted)}
+.points{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.points li{max-width:68ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{font-size:.82rem;padding:3px 10px;border-radius:999px;background:var(--accent-soft)}
+details{border:1px solid var(--line);border-radius:6px;background:var(--code)}
+summary{cursor:pointer;padding:10px 14px;font-weight:600;font-size:.92rem;color:var(--accent)}
+pre{margin:0;padding:14px 16px;max-height:520px;overflow:auto;border-top:1px solid var(--line);font-size:.8rem;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+code{font-family:ui-monospace,Menlo,Consolas,monospace}
+.why{display:flex;flex-direction:column;gap:12px}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Sample AI skills</p>
+    <h1>Claude skills I built</h1>
+    <p class="lede">Three of the 139 custom Claude skills I've written. Each one is a Markdown (.md) instruction file that tells Claude exactly how to do a repeatable job: the steps, the rules and the quality checks. The process map builder and the map audit work as a pair, one builds the map and the other checks it.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Wrote all three skills; they're among the 139 custom AI skills I've built.</p><p style="margin:0;max-width:none"><b>Outcome:</b> The email skill has been shared with clients 50+ times, so they can generate a follow-up email with AI and open it in Outlook to send.</p></div>
+  </header>
+
+  <section class="skill" aria-labelledby="maps">
+    <div class="skhead"><p class="file">maps/SKILL.md · 331 lines</p><h2 id="maps">Process map builder</h2></div>
+    <p>Builds a current-state swimlane process map as an HTML page from client interview transcripts, using a client-approved baseline format.</p>
+    <ul class="points"><li>Pulls every task, bullet, pain point and software label only from what client interviewees said, with speaker and timestamp</li><li>Writes a structured spec, renders it with a Python script and screenshots the result before delivery</li><li>Enforces content rules: lanes are job titles, no names in tasks, max 3 bullets, yellow TO CONFIRM stickies instead of guesses</li><li>Freezes the swimlane titles while the map scrolls, then cross-checks the finished map against every transcript</li></ul>
+    <div class="tags"><span>Python</span><span>Playwright</span><span>SharePoint</span><span>BPMN</span></div>
+    <details><summary>View the full SKILL.md</summary><pre><code>---
+name: &quot;maps&quot;
+description: &quot;Build or revise an Automized current-state swimlane process map (HTML) from client interview transcripts, using an approved baseline map format. Use for any process map request.&quot;
+---
+
+# Maps – Automized current-state process maps
+
+Baseline: the client-approved &quot;Reporting and Analytics – Sales and Operations Reporting&quot; map. Every new map must look and behave like it. Standards come from the team&#x27;s process-map review plus Fran&#x27;s later edits.
+
+## Workflow
+
+1. **Find the sources.** Get the process name and the client. Locate the interview transcripts (usually SharePoint: `3. Clients/&lt;Client&gt;/01. Digital Operations Assessment/2. Client Reference Materials/3. Interview Transcripts`) and any prior playbook or map for that process. Ask if unclear.
+2. **Extract from transcripts only.** Every task, bullet, pain point, lane, icon and software label must trace to something a client interviewee said (not an Automized interviewer). Record speaker plus timestamp for each item as you go. For long transcript sets, split them across parallel subagents.
+3. **Build a spec JSON** (format below) and render it with `render_map.py` (code below). Write the script to disk, run `python3 render_map.py spec.json out.html`, then screenshot the result with Playwright and look at it before delivering.
+4. **Freeze the swimlane titles.** As the last build step (after `combine_tabs.py` for multi-tab maps), run `python3 add_sticky_lanes.py in.html out.html` (code below) so the blue lane titles stay fixed on the left while the map scrolls right. Test it: in Playwright, set `.map` scrollLeft to a few hundred px on each tab and screenshot; the lane names must stay pinned and line up with their rows.
+5. **Cross-check before delivering.** Re-read every transcript against the finished map and report to the user, grouped as: Incorrect, Goes beyond what was said, Sticky notes the transcripts answer, Missing (in scope), Probably other maps. Quote speaker and timestamp. Do not silently change anything. Let the user decide.
+6. **Deliver.** Save to the user&#x27;s Downloads (or the folder they name), and to SharePoint `.../4. Deliverables/Process Maps` when asked. Save a cross-check notes doc plus the spec JSON to the client&#x27;s project.
+
+## Content rules
+
+- **Lanes are job positions only.** Never software or systems. Use the title the client uses. If no one stated a title, add a lane sticky saying &quot;Confirm job titles&quot;.
+- **Names never appear in task or bullet text.** The lane defines who does the task. Software is never named in the task text either; it goes in the label above the box.
+- **Objective only.** Show the current process with no judgments, assessments or &quot;fix first&quot; calls. No hot-spot badges.
+- **Pain points come straight from a client interviewee.** Check the context: if the speaker framed it as positive or was talking about someone else, it is not a pain point for that lane.
+- **Frequency is not stated per step.** It belongs at the map or process level. No &quot;daily/weekly&quot; chips. Avoid time words in bullets unless they are essential facts.
+- **Bullets:** a maximum of 3 per step, short and simple. Pain points sit under the bullets and do not count toward the 3.
+- **Report and file names:** bold, with the extension, like **Labor Tracker.xls**. If the actual file name wasn&#x27;t stated, add a sticky: &quot;Confirm the file names…&quot;.
+- **Icons (BPMN style):** person = user task (someone works in a system); hand = manual task (done by hand, rekeying, Excel built by hand, meetings); script = automated or scheduled. Only one icon per task.
+- **Unconfirmed items get a yellow TO CONFIRM sticky** instead of a guess. Examples: who owns a step, which software, whether something is scheduled or manual, what a report is called.
+- **START and END:** bold START at the top of the first task box and bold END at the bottom of the last. No separate circles.
+- **Don&#x27;t invent steps.** Never create a step no one described, such as a generic &quot;Receive reports&quot;. If a step has nothing stated, leave it out or ask.
+- **Arrow order is a layout choice.** If asked, explain that only some arrows are real handoffs.
+- **Scope:** keep items that belong on other process maps (billing, AP, inventory, sales management) off this map. List them for the user instead.
+
+## Visual standard (built into render_map.py; don&#x27;t change without being asked)
+
+- **Header:** client logo, title in Playfair Display, subtitle, yellow (#FCD818) rule underneath. Legend box on the right titled LEGEND, listing User task, Manual task and Automated (script) stacked vertically. Nothing else in the legend.
+- **Lanes:** horizontal, with blue (#004890) label blocks, large white bold text and no icons. Alternating white and cream rows. Each lane&#x27;s height fits its own content.
+- **Frozen lane titles:** the blue lane title column stays fixed on the left when the map scrolls horizontally (added by `add_sticky_lanes.py`). It only shows when the map is wider than the window. Content and layout are unchanged.
+- **Task boxes:** 176 x ~122 with rounded corners. Title is centered horizontally and vertically. The icon sits top-left.
+- **Software label:** bold blue monospace text above the box. Separate multiple tools with &quot; | &quot;.
+- **Step detail:** a single left square bracket under each task, the same width as the task box, with left-aligned bullets.
+- **Pain points:** red italic text under the bracket, no box and no bullet, prefixed with bold &quot;Pain Point:&quot;.
+- **Sticky notes:** straight (never rotated), yellow, with a &quot;TO CONFIRM&quot; header. Place them beside the step in an empty column (`note_side` right or left) so they never overlap a step or arrow.
+- **Arrows:** thick (2.6), with rounded bends. The vertical run goes in the gap between columns so the arrowhead has a straight lead-in.
+- **File size:** the logo is embedded as a small JPEG (~160x80) to keep the file small. This matters for SharePoint upload, because the connector takes inline text only, about 35KB.
+
+## Spec format
+
+```json
+{
+ &quot;client&quot;: &quot;Sample Client&quot;,
+ &quot;title&quot;: &quot;Reporting and Analytics&quot;,
+ &quot;subtitle&quot;: &quot;Sales and Operations Reporting&quot;,
+ &quot;logo&quot;: &quot;logo.jpg&quot;,
+ &quot;lanes&quot;: [&quot;Inventory &amp; Purchasing Mgr&quot;, &quot;IT Lead&quot;, &quot;Sales Support&quot;, &quot;CFO&quot;, &quot;VP Operations&quot;, &quot;General Managers&quot;],
+ &quot;lane_note&quot;: &quot;Confirm job titles&quot;,
+ &quot;steps&quot;: [
+  {&quot;lane&quot;: &quot;Inventory &amp; Purchasing Mgr&quot;, &quot;kind&quot;: &quot;script&quot;, &quot;software&quot;: &quot;Reporting tool&quot;,
+   &quot;title&quot;: &quot;Send saved reports by email&quot;,
+   &quot;bullets&quot;: [&quot;At least 100 saved reports&quot;, &quot;Run daily, weekly and monthly&quot;],
+   &quot;pains&quot;: [&quot;reports often go unread at store level&quot;]},
+  {&quot;lane&quot;: &quot;Inventory &amp; Purchasing Mgr&quot;, &quot;kind&quot;: &quot;manual&quot;, &quot;software&quot;: &quot;Reporting tool | POS | Tracking app&quot;,
+   &quot;title&quot;: &quot;Re-key report data into spreadsheets&quot;,
+   &quot;bullets&quot;: [&quot;**New Tire Sales by Brand.xls** – emailed daily to President and VP Sales&quot;],
+   &quot;note&quot;: &quot;Confirm the file names of the Excel sheets.&quot;, &quot;note_side&quot;: &quot;right&quot;}
+ ]
+}
+```
+
+- **`kind`:** one of user, manual or script.
+- **`**...**`:** marks bold text in bullets.
+- **`pains`:** plain text; the &quot;Pain Point:&quot; prefix is added automatically.
+- **Order:** steps render left to right in list order.
+- **Logo:** an image path, or a data: URI. Pull the client logo from their existing playbook or deliverables.
+- **Full baseline spec:** the client project keeps the complete example spec and the script at `claude/maps/`.
+
+## render_map.py
+
+```python
+#!/usr/bin/env python3
+&quot;&quot;&quot;Automized swimlane process map renderer (Maps skill).
+Usage: python3 render_map.py spec.json out.html
+&quot;&quot;&quot;
+import html, json, re, sys, base64, io, os
+
+spec = json.load(open(sys.argv[1])); OUT = sys.argv[2]
+BLUE = &quot;#004890&quot;; INK = &quot;#1C1F24&quot;; CREAM = &quot;#F4F2EE&quot;; LINE = &quot;#DAD6CE&quot;; ARROW = &quot;#3A3F46&quot;
+LANES = spec[&quot;lanes&quot;]
+LANE_W, COL_W, BOX_W = 190, 244, 176
+TASK_W = BOX_W; PAD_X = (COL_W - BOX_W) / 2
+SW_H, LANE_PAD = 30, 16
+TITLE_FS, BUL_FS, TITLE_LH, BUL_LH = 15, 12, 19, 16
+CH_TITLE, CH_BUL, CH_PAIN = 19, 25, 29
+
+def wrap_words(words, maxc):
+    lines, cur, n = [], [], 0
+    for w, st in words:
+        add = len(w) + (1 if cur else 0)
+        if cur and n + add &gt; maxc:
+            lines.append(cur); cur, n = [], 0; add = len(w)
+        cur.append((w, st)); n += add
+    if cur: lines.append(cur)
+    return lines
+
+def parse_bold(text):
+    segs = []
+    for k, part in enumerate(re.split(r&quot;\*\*&quot;, text)):
+        if part: segs.append((part, &quot;b&quot; if k % 2 else &quot;n&quot;))
+    return segs
+
+def seg_words(segs):
+    out = []
+    for text, st in segs:
+        for w in text.split(&quot; &quot;):
+            if w: out.append((w, st))
+    return out
+
+STEPS = []
+for i, s in enumerate(spec[&quot;steps&quot;]):
+    st = dict(s)
+    st[&quot;li&quot;] = LANES.index(s[&quot;lane&quot;])
+    st[&quot;tlines&quot;] = wrap_words([(w, &quot;t&quot;) for w in s[&quot;title&quot;].split()], CH_TITLE)
+    st[&quot;blines&quot;] = []
+    for b in s.get(&quot;bullets&quot;, []):
+        for k, l in enumerate(wrap_words(seg_words(parse_bold(b)), CH_BUL)):
+            st[&quot;blines&quot;].append((k == 0, l))
+    st[&quot;plines&quot;] = []
+    for p in s.get(&quot;pains&quot;, []):
+        words = [(&quot;Pain&quot;, &quot;pb&quot;), (&quot;Point:&quot;, &quot;pb&quot;)] + [(w, &quot;i&quot;) for w in (p[0].upper() + p[1:]).split()]
+        for k, l in enumerate(wrap_words(words, CH_PAIN)):
+            st[&quot;plines&quot;].append((k == 0, l))
+    st[&quot;start&quot;] = i == 0; st[&quot;end&quot;] = i == len(spec[&quot;steps&quot;]) - 1
+    STEPS.append(st)
+
+TASK_H = max(len(s[&quot;tlines&quot;]) for s in STEPS) * TITLE_LH + 2 * 42
+DET_GAP = 10
+def ann_h(s): return (len(s[&quot;blines&quot;]) * BUL_LH + 10) if s[&quot;blines&quot;] else -8
+def pain_h(s): return (len(s[&quot;plines&quot;]) * BUL_LH + 6) if s[&quot;plines&quot;] else 0
+def det_h(s): return ann_h(s) + (8 + pain_h(s) if s[&quot;plines&quot;] else 0)
+LANE_HS = [max(SW_H + TASK_H + DET_GAP + max([det_h(s) for s in STEPS if s[&quot;li&quot;] == k] or [0]) + 2 * LANE_PAD, 230) for k in range(len(LANES))]
+LANE_Y = [sum(LANE_HS[:k]) for k in range(len(LANES))]
+W = LANE_W + COL_W * len(STEPS) + 20; H = sum(LANE_HS)
+def box_xy(i, s): return LANE_W + i * COL_W + PAD_X, LANE_Y[s[&quot;li&quot;]] + LANE_PAD + SW_H
+
+def icon(kind, x, y, c=BLUE):
+    if kind == &quot;user&quot;:
+        return (f&#x27;&lt;g transform=&quot;translate({x},{y})&quot; fill=&quot;none&quot; stroke=&quot;{c}&quot; stroke-width=&quot;1.7&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;7&quot; r=&quot;5&quot;/&gt;&#x27;
+                f&#x27;&lt;path d=&quot;M2 22 Q2 13 11 13 Q20 13 20 22 Z&quot; fill=&quot;{c}&quot; fill-opacity=&quot;.15&quot;/&gt;&lt;/g&gt;&#x27;)
+    if kind == &quot;manual&quot;:
+        return (f&#x27;&lt;g transform=&quot;translate({x},{y})&quot; fill=&quot;{c}&quot; fill-opacity=&quot;.12&quot; stroke=&quot;{c}&quot; stroke-width=&quot;1.6&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;&#x27;
+                f&#x27;&lt;path d=&quot;M6 21 L3 13 Q2.5 11 4.5 11 Q6 11 6.8 13 L7.5 15 L7.5 4 Q7.5 2.5 9 2.5 Q10.5 2.5 10.5 4 L10.5 10 L10.5 2.5 Q10.5 1 12 1 Q13.5 1 13.5 2.5 L13.5 10 L13.5 3.5 Q13.5 2 15 2 Q16.5 2 16.5 3.5 L16.5 10.5 L16.5 6 Q16.5 4.5 18 4.5 Q19.5 4.5 19.5 6 L19.5 15 Q19.5 21 15 21 Z&quot;/&gt;&lt;/g&gt;&#x27;)
+    return (f&#x27;&lt;g transform=&quot;translate({x},{y})&quot; fill=&quot;none&quot; stroke=&quot;{c}&quot; stroke-width=&quot;1.6&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;&#x27;
+            f&#x27;&lt;path d=&quot;M5 2 H19 Q16 6 19 11 Q22 16 19 21 H5 Q8 16 5 11 Q2 6 5 2 Z&quot; fill=&quot;{c}&quot; fill-opacity=&quot;.12&quot;/&gt;&lt;path d=&quot;M8 7 H15 M8.5 11 H16 M8 15 H15&quot;/&gt;&lt;/g&gt;&#x27;)
+
+def runs(words, attrmap):
+    out, cur, buf = [], None, []
+    for k, (w, st) in enumerate(words):
+        t = (&quot; &quot; if k else &quot;&quot;) + w
+        if st == cur: buf.append(t)
+        else:
+            if buf: out.append((cur, &quot;&quot;.join(buf)))
+            cur, buf = st, [t]
+    if buf: out.append((cur, &quot;&quot;.join(buf)))
+    return &quot;&quot;.join(f&#x27;&lt;tspan{attrmap[st]}&gt;{html.escape(t)}&lt;/tspan&gt;&#x27; if attrmap.get(st) else html.escape(t) for st, t in out)
+
+def tline(x, y, words, cls, anchor=&quot;middle&quot;):
+    a = &#x27; text-anchor=&quot;middle&quot;&#x27; if anchor == &quot;middle&quot; else &quot;&quot;
+    return f&#x27;&lt;text class=&quot;{cls}&quot; x=&quot;{x:g}&quot; y=&quot;{y:g}&quot;{a}&gt;{runs(words, {&quot;b&quot;: &quot; font-weight=\&quot;700\&quot;&quot;})}&lt;/text&gt;&#x27;
+
+o = []; e = o.append
+e(f&#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 {W:g} {H:g}&quot; width=&quot;{W:g}&quot; role=&quot;img&quot; aria-label=&quot;Swimlane process map: {html.escape(spec[&quot;title&quot;])}&quot;&gt;&#x27;)
+e(&#x27;&lt;defs&gt;&#x27; + &quot;&quot;.join(f&#x27;&lt;g id=&quot;i-{k}&quot;&gt;{icon(k, 0, 0)}&lt;/g&gt;&#x27; for k in (&quot;user&quot;, &quot;manual&quot;, &quot;script&quot;)) +
+  f&#x27;&lt;marker id=&quot;ah&quot; markerWidth=&quot;5&quot; markerHeight=&quot;5&quot; refX=&quot;8&quot; refY=&quot;5&quot; viewBox=&quot;0 0 10 10&quot; orient=&quot;auto&quot; markerUnits=&quot;strokeWidth&quot;&gt;&lt;path d=&quot;M0 0L10 5L0 10z&quot; fill=&quot;{ARROW}&quot;/&gt;&lt;/marker&gt;&lt;/defs&gt;&#x27;)
+for li, name in enumerate(LANES):
+    y, lh_ = LANE_Y[li], LANE_HS[li]
+    e(f&#x27;&lt;rect x=&quot;0&quot; y=&quot;{y:g}&quot; width=&quot;{W:g}&quot; height=&quot;{lh_:g}&quot; fill=&quot;{&quot;#fff&quot; if li % 2 == 0 else CREAM}&quot; stroke=&quot;{LINE}&quot;/&gt;&#x27;)
+    e(f&#x27;&lt;rect x=&quot;0&quot; y=&quot;{y:g}&quot; width=&quot;{LANE_W}&quot; height=&quot;{lh_:g}&quot; fill=&quot;{BLUE}&quot; stroke=&quot;{LINE}&quot;/&gt;&#x27;)
+    ws = wrap_words([(w, &quot;t&quot;) for w in name.split()], 14)
+    y0 = y + lh_ / 2 - (len(ws) - 1) * 11
+    for k, l in enumerate(ws):
+        e(f&#x27;&lt;text class=&quot;lane&quot; x=&quot;{LANE_W/2:g}&quot; y=&quot;{y0 + k*22:g}&quot; text-anchor=&quot;middle&quot;&gt;{html.escape(&quot; &quot;.join(w for w, _ in l))}&lt;/text&gt;&#x27;)
+
+for i, s in enumerate(STEPS):
+    x, y = box_xy(i, s); cx = x + BOX_W / 2
+    if s.get(&quot;software&quot;):
+        e(f&#x27;&lt;text class=&quot;sw&quot; x=&quot;{cx:g}&quot; y=&quot;{y - SW_H/2 - 2:g}&quot; text-anchor=&quot;middle&quot;&gt;{html.escape(s[&quot;software&quot;])}&lt;/text&gt;&#x27;)
+    e(f&#x27;&lt;rect x=&quot;{x:g}&quot; y=&quot;{y:g}&quot; width=&quot;{TASK_W}&quot; height=&quot;{TASK_H}&quot; rx=&quot;10&quot; fill=&quot;#fff&quot; stroke=&quot;{INK}&quot; stroke-width=&quot;1.3&quot;/&gt;&#x27;)
+    e(f&#x27;&lt;use href=&quot;#i-{s[&quot;kind&quot;]}&quot; x=&quot;{x + 8:g}&quot; y=&quot;{y + 8:g}&quot;/&gt;&#x27;)
+    if s[&quot;start&quot;]: e(f&#x27;&lt;text class=&quot;se&quot; x=&quot;{cx:g}&quot; y=&quot;{y + 20:g}&quot; text-anchor=&quot;middle&quot;&gt;START&lt;/text&gt;&#x27;)
+    if s[&quot;end&quot;]: e(f&#x27;&lt;text class=&quot;se&quot; x=&quot;{cx:g}&quot; y=&quot;{y + TASK_H - 18:g}&quot; text-anchor=&quot;middle&quot;&gt;END&lt;/text&gt;&#x27;)
+    ty = y + TASK_H / 2 - (len(s[&quot;tlines&quot;]) - 1) * TITLE_LH / 2 + (10 if s[&quot;start&quot;] else 0) - (10 if s[&quot;end&quot;] else 0)
+    for l in s[&quot;tlines&quot;]:
+        e(tline(cx, ty, l, &quot;task&quot;)); ty += TITLE_LH
+    dy = y + TASK_H + DET_GAP; ah = ann_h(s)
+    if s[&quot;blines&quot;]:
+        e(f&#x27;&lt;path d=&quot;M {x + 9:g} {dy:g} H {x + 1:g} V {dy + ah:g} H {x + 9:g}&quot; fill=&quot;none&quot; stroke=&quot;#52565C&quot; stroke-width=&quot;1.6&quot;/&gt;&#x27;)
+    by = dy + 5 + BUL_LH / 2
+    for first, l in s[&quot;blines&quot;]:
+        if first: e(f&#x27;&lt;text class=&quot;bul&quot; x=&quot;{x + 13:g}&quot; y=&quot;{by:g}&quot;&gt;•&lt;/text&gt;&#x27;)
+        e(tline(x + 24, by, l, &quot;bul&quot;, &quot;start&quot;)); by += BUL_LH
+    if s[&quot;plines&quot;]:
+        by = dy + ah + 8 + BUL_LH / 2; started = False
+        for first, l in s[&quot;plines&quot;]:
+            if first and started: by += 4
+            started = True
+            e(f&#x27;&lt;text class=&quot;pain&quot; x=&quot;{x + 2:g}&quot; y=&quot;{by:g}&quot;&gt;{runs(l, {&quot;pb&quot;: &quot; font-weight=\&quot;700\&quot;&quot;})}&lt;/text&gt;&#x27;); by += BUL_LH
+
+for i, s in enumerate(STEPS):
+    if not s.get(&quot;note&quot;): continue
+    x, y = box_xy(i, s); nw = TASK_W - 10
+    nx = (x - COL_W + 24) if s.get(&quot;note_side&quot;) == &quot;left&quot; else (x + COL_W + 14)
+    lines = wrap_words([(w, &quot;n&quot;) for w in s[&quot;note&quot;].split()], 22)
+    nh = 34 + len(lines) * 17 + 12; ny = y + 4
+    e(f&#x27;&lt;g&gt;&lt;rect x=&quot;{nx + 3:g}&quot; y=&quot;{ny + 4:g}&quot; width=&quot;{nw}&quot; height=&quot;{nh}&quot; fill=&quot;#000&quot; opacity=&quot;.12&quot;/&gt;&#x27;
+      f&#x27;&lt;path d=&quot;M {nx:g} {ny:g} H {nx + nw:g} V {ny + nh - 16:g} L {nx + nw - 16:g} {ny + nh:g} H {nx:g} Z&quot; fill=&quot;#FFE97A&quot; stroke=&quot;#E0C341&quot;/&gt;&#x27;
+      f&#x27;&lt;path d=&quot;M {nx + nw:g} {ny + nh - 16:g} H {nx + nw - 16:g} V {ny + nh:g} Z&quot; fill=&quot;#E8CF55&quot;/&gt;&#x27;
+      f&#x27;&lt;text class=&quot;stk-h&quot; x=&quot;{nx + 12:g}&quot; y=&quot;{ny + 18:g}&quot;&gt;TO CONFIRM&lt;/text&gt;&#x27;)
+    ty = ny + 38
+    for l in lines:
+        e(f&#x27;&lt;text class=&quot;stk&quot; x=&quot;{nx + 12:g}&quot; y=&quot;{ty:g}&quot;&gt;{html.escape(&quot; &quot;.join(w for w, _ in l))}&lt;/text&gt;&#x27;); ty += 17
+    e(&#x27;&lt;/g&gt;&#x27;)
+
+for i in range(len(STEPS) - 1):
+    a, b = STEPS[i], STEPS[i + 1]
+    ax, ay = box_xy(i, a); bx, by_ = box_xy(i + 1, b)
+    y1, y2 = ay + TASK_H / 2, by_ + TASK_H / 2; x1, x2 = ax + TASK_W, bx - 3
+    if a[&quot;li&quot;] == b[&quot;li&quot;]:
+        e(f&#x27;&lt;line class=&quot;arr&quot; x1=&quot;{x1:g}&quot; y1=&quot;{y1:g}&quot; x2=&quot;{x2:g}&quot; y2=&quot;{y2:g}&quot; marker-end=&quot;url(#ah)&quot;/&gt;&#x27;)
+    else:
+        mx = ax + BOX_W + PAD_X; r = 12; d = 1 if y2 &gt; y1 else -1
+        e(f&#x27;&lt;path class=&quot;arr&quot; d=&quot;M {x1:g} {y1:g} L {mx - r:g} {y1:g} Q {mx:g} {y1:g} {mx:g} {y1 + d*r:g} L {mx:g} {y2 - d*r:g} Q {mx:g} {y2:g} {mx + r:g} {y2:g} L {x2:g} {y2:g}&quot; marker-end=&quot;url(#ah)&quot;/&gt;&#x27;)
+e(&#x27;&lt;/svg&gt;&#x27;)
+
+logo_html = &quot;&quot;
+if spec.get(&quot;logo&quot;):
+    src = spec[&quot;logo&quot;]
+    if not src.startswith(&quot;data:&quot;):
+        try:
+            from PIL import Image
+            im = Image.open(src).convert(&quot;RGB&quot;); im.thumbnail((200, 80))
+            buf = io.BytesIO(); im.save(buf, &quot;JPEG&quot;, quality=75, optimize=True)
+            src = &quot;data:image/jpeg;base64,&quot; + base64.b64encode(buf.getvalue()).decode()
+        except Exception:
+            ext = os.path.splitext(src)[1].lstrip(&quot;.&quot;).lower() or &quot;png&quot;
+            src = f&quot;data:image/{ext};base64,&quot; + base64.b64encode(open(src, &quot;rb&quot;).read()).decode()
+    logo_html = f&#x27;&lt;img class=&quot;logo&quot; alt=&quot;{html.escape(spec.get(&quot;client&quot;, &quot;&quot;))}&quot; src=&quot;{src}&quot;/&gt;&#x27;
+
+def li(kind, label): return f&#x27;&lt;div&gt;&lt;svg width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot;&gt;{icon(kind, 1, 1)}&lt;/svg&gt;&lt;span&gt;{label}&lt;/span&gt;&lt;/div&gt;&#x27;
+legend = &#x27;&lt;div class=&quot;lgbox&quot;&gt;&lt;div class=&quot;lgt&quot;&gt;Legend&lt;/div&gt;&lt;div class=&quot;lgd&quot;&gt;&#x27; + li(&quot;user&quot;, &quot;User task&quot;) + li(&quot;manual&quot;, &quot;Manual task&quot;) + li(&quot;script&quot;, &quot;Automated (script)&quot;) + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27;
+lane_note = f&#x27;&lt;div class=&quot;lanenote&quot;&gt;&lt;span&gt;TO CONFIRM&lt;/span&gt;{html.escape(spec[&quot;lane_note&quot;])}&lt;/div&gt;\n&#x27; if spec.get(&quot;lane_note&quot;) else &quot;&quot;
+CSS = f&quot;&quot;&quot;svg text{{dominant-baseline:central}}
+body{{margin:0;background:#fff;font-family:&quot;DM Sans&quot;,system-ui,sans-serif;color:{INK}}}
+.wrap{{padding:28px 24px 32px}}
+.hd{{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:16px;border-bottom:3px solid #FCD818;padding-bottom:12px}}
+h1{{font-family:&quot;Playfair Display&quot;,Georgia,serif;font-weight:600;font-size:30px;margin:4px 0 2px;color:{BLUE}}}
+.sub{{font-size:16px;color:#2B3A4A}}
+.ttl{{display:flex;align-items:center;gap:22px}}
+.logo{{height:64px;width:auto;display:block}}
+.lgbox{{border:1px solid #6C9CD8;border-radius:6px;background:#F7F9FC;padding:6px 12px 7px}}
+.lgt{{font-family:&quot;JetBrains Mono&quot;,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:{BLUE};margin-bottom:5px;padding-bottom:4px;border-bottom:1px solid {LINE}}}
+.lgd{{display:flex;flex-direction:column;align-items:flex-start;gap:6px;font-size:12.5px;color:#2B3A4A}}
+.lgd div{{display:flex;align-items:center;gap:5px;white-space:nowrap}}
+.lgd svg{{height:20px;width:auto;flex:none}}
+.lanenote{{width:160px;margin:0 0 12px 14px;padding:10px 12px 14px;background:#FFE97A;border:1px solid #E0C341;box-shadow:3px 4px 0 rgba(0,0,0,.12);font-size:14px;color:#3D3200;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}}
+.lanenote span{{display:block;font-family:&quot;JetBrains Mono&quot;,monospace;font-size:11px;font-weight:700;letter-spacing:.08em;color:#6B5300;margin-bottom:4px}}
+.map{{overflow-x:auto;border:1px solid {LINE};border-radius:10px}}
+.map svg{{display:block;width:100%;min-width:1700px;height:auto}}
+.lane{{font-family:&quot;DM Sans&quot;,sans-serif;font-weight:700;font-size:18px;fill:#fff}}
+.sw{{font-family:&quot;JetBrains Mono&quot;,monospace;font-weight:700;font-size:14px;fill:{BLUE};letter-spacing:.02em}}
+.task{{font-family:&quot;DM Sans&quot;,sans-serif;font-weight:700;font-size:{TITLE_FS}px;fill:{INK}}}
+.bul{{font-family:&quot;DM Sans&quot;,sans-serif;font-size:{BUL_FS}px;fill:#2B3A4A}}
+.stk-h{{font-family:&quot;JetBrains Mono&quot;,monospace;font-size:11px;font-weight:700;letter-spacing:.08em;fill:#6B5300}}
+.stk{{font-family:&quot;DM Sans&quot;,sans-serif;font-size:13px;fill:#3D3200}}
+.pain{{font-family:&quot;DM Sans&quot;,sans-serif;font-size:12.5px;font-style:italic;font-weight:500;fill:#B3261E}}
+.se{{font-family:&quot;DM Sans&quot;,sans-serif;font-weight:800;font-size:14px;letter-spacing:.12em;fill:{BLUE}}}
+.arr{{stroke:{ARROW};stroke-width:2.6;fill:none;stroke-linejoin:round}}
+@media print{{.map{{border:0}}.map svg{{min-width:0}}}}&quot;&quot;&quot;
+page = f&#x27;&#x27;&#x27;&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;/&gt;
+&lt;title&gt;{html.escape(spec[&quot;title&quot;])} | {html.escape(spec.get(&quot;client&quot;, &quot;&quot;))}&lt;/title&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;/&gt;
+&lt;style&gt;
+{CSS}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;wrap&quot;&gt;
+&lt;div class=&quot;hd&quot;&gt;&lt;div class=&quot;ttl&quot;&gt;{logo_html}&lt;div&gt;&lt;h1&gt;{html.escape(spec[&quot;title&quot;])}&lt;/h1&gt;&lt;div class=&quot;sub&quot;&gt;{html.escape(spec.get(&quot;subtitle&quot;, &quot;&quot;))}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+{legend}
+&lt;/div&gt;
+{lane_note}&lt;div class=&quot;map&quot;&gt;
+{chr(10).join(o)}
+&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&#x27;&#x27;&#x27;
+open(OUT, &quot;w&quot;).write(page)
+print(&quot;ok&quot;, OUT, f&quot;{W:g}x{H:g}&quot;, len(page.encode()), &quot;bytes&quot;)
+```
+
+## add_sticky_lanes.py
+
+Post-processes a rendered (or tab-combined) map. It moves the blue lane rects (width 190, fill #004890) and `text.lane` labels into a group on top of the SVG and shifts that group by the `.map` container&#x27;s scroll position, so the titles stay pinned. Hidden tabs are skipped until shown. If `LANE_W` or `BLUE` in `render_map.py` ever change, update the selector to match. The client project keeps a copy at `claude/maps/add_sticky_lanes.py`.
+
+```python
+#!/usr/bin/env python3
+&quot;&quot;&quot;Add frozen swimlane titles to a combined map: python3 add_sticky_lanes.py in.html out.html&quot;&quot;&quot;
+import sys
+src, out = sys.argv[1], sys.argv[2]
+h = open(src).read()
+css = &quot;.lanefix{filter:drop-shadow(3px 0 3px rgba(0,0,0,0))}.lanefix.on{filter:drop-shadow(4px 0 4px rgba(0,0,0,.25))}\n&quot;
+js = &quot;&quot;&quot;&lt;script&gt;
+document.querySelectorAll(&#x27;.map&#x27;).forEach(m=&gt;{
+  const svg=m.querySelector(&#x27;svg&#x27;); if(!svg) return;
+  const ns=&#x27;http://www.w3.org/2000/svg&#x27;, g=document.createElementNS(ns,&#x27;g&#x27;); g.setAttribute(&#x27;class&#x27;,&#x27;lanefix&#x27;);
+  [...svg.querySelectorAll(&#x27;rect[width=&quot;190&quot;][fill=&quot;#004890&quot;], text.lane&#x27;)].forEach(el=&gt;g.appendChild(el));
+  svg.appendChild(g);
+  const vbw=svg.viewBox.baseVal.width;
+  const upd=()=&gt;{const w=svg.getBoundingClientRect().width; if(!w) return; const k=vbw/w, x=m.scrollLeft*k;
+    g.setAttribute(&#x27;transform&#x27;,&#x27;translate(&#x27;+x+&#x27;,0)&#x27;); g.classList.toggle(&#x27;on&#x27;,m.scrollLeft&gt;2);};
+  m.addEventListener(&#x27;scroll&#x27;,upd,{passive:true}); window.addEventListener(&#x27;resize&#x27;,upd); upd();
+});
+&lt;/script&gt;&quot;&quot;&quot;
+h = h.replace(&quot;&lt;/style&gt;&quot;, css + &quot;&lt;/style&gt;&quot;, 1).replace(&quot;&lt;/body&gt;&quot;, js + &quot;&lt;/body&gt;&quot;, 1)
+open(out, &quot;w&quot;).write(h); print(&quot;ok&quot;, out, len(h))
+```
+
+## Revising a map
+
+Edit the spec JSON and re-render (then re-run `add_sticky_lanes.py`). Don&#x27;t hand-edit the HTML. After each change, re-screenshot and check for:
+
+- overlapping stickies or arrows
+- crowded START/END text
+- awkward line wraps
+
+Keep the spec saved in the client&#x27;s project so the next session can pick it up.</code></pre></details>
+  </section>
+  <section class="skill" aria-labelledby="check">
+    <div class="skhead"><p class="file">check/SKILL.md · 75 lines</p><h2 id="check">Map audit (check)</h2></div>
+    <p>An independent, line-by-line audit of a finished process map against every interview transcript, to catch anything the client never actually said.</p>
+    <ul class="points"><li>Finds the most recent map and breaks it into one row per checkable claim</li><li>Splits the transcripts across parallel subagents that quote supporting or contradicting passages</li><li>Classifies each row: supported, incorrect, hallucinated, implied, overstated, misattributed, missing and more</li><li>Reports only and never edits the map, so the analyst decides every change</li></ul>
+    <div class="tags"><span>Subagents</span><span>SharePoint</span><span>Circleback</span><span>QA</span></div>
+    <details><summary>View the full SKILL.md</summary><pre><code>---
+name: &quot;check&quot;
+description: &quot;Audit the most recently created client process map against every interview transcript for errors, hallucinations, false info and implied-but-unstated content. Use for \&quot;check\&quot; or \&quot;check the latest map\&quot;.&quot;
+---
+
+# Check – transcript audit of the latest process map
+
+An independent, line-by-line audit of a finished map. The goal is to catch anything on the map that a client interviewee did not actually say. Report only. **Never edit the map, the spec or the HTML.** Fran decides what changes.
+
+## 1. Find the most recent map
+
+1. Call `project_info` on the client project and list every doc under `claude/maps/` ending in `_spec.json` (also `*_pending_steps.json` if it is newer and has no spec yet).
+2. `project_read` each candidate and compare `created_at`. The newest one is the map to check.
+3. If a map name or file was given with the request, use that instead.
+4. Tell Fran in one line which map you picked (title, subtitle, tabs if several) before going further. If two maps were created within minutes of each other, or the newest is a combined file built by `combine_tabs.py`, ask which one she means.
+5. If the HTML is newer than the spec (SharePoint `3. Clients/&lt;Client&gt;/01. Digital Operations Assessment/4. Deliverables/Process Maps`, or a file Fran attaches), audit the HTML text, since it may contain hand edits.
+6. Read any existing cross-check doc for that map (`claude/*CrossCheck.md`) so you know which items were already flagged and accepted.
+
+Break the map into an audit list. One row per checkable claim:
+- lane names
+- each step title, its lane, its icon kind (user / manual / script) and its software label
+- each bullet, including any bold report or file name
+- each pain point
+- each TO CONFIRM sticky
+- each arrow or hand-off between lanes
+- the map title and subtitle
+
+## 2. Get every transcript
+
+- Primary source: SharePoint `3. Clients/&lt;Client&gt;/01. Digital Operations Assessment/2. Client Reference Materials/3. Interview Transcripts`. Pull **all** of them, not just the ones the cross-check doc cites.
+- Fallback: Circleback (`SearchMeetings` / `GetTranscriptsForMeetings` for the client), or files Fran attaches.
+- List the transcripts you found (interviewee, date) and say so if any could not be opened. An audit missing a transcript is incomplete; say that plainly in the report.
+
+## 3. Audit
+
+Split the transcripts across parallel subagents (3–4 transcripts each). Give every subagent the full audit list and these instructions:
+
+- For each audit row, find every passage that supports, contradicts or relates to it. Quote the words and give speaker + timestamp.
+- Only a **client interviewee** counts as a source. An Automized interviewer&#x27;s statement, question, survey read-back or summary is not a source unless the client clearly confirms it in their own words. A bare &quot;yeah&quot; to a leading question is weak support; flag it as such.
+- Check context: who the speaker was describing (themselves, another store, another role), whether it was current state or a wish, and whether a &quot;pain point&quot; was actually framed as a complaint.
+- Return findings, not opinions about the process.
+
+Then merge the results and classify every row into one of these:
+
+| Category | Meaning |
+|---|---|
+| **Supported** | A client said it, in this context. Cite it. |
+| **Incorrect / false** | A transcript contradicts it (wrong role, wrong software, wrong order, wrong number, wrong name). |
+| **Hallucinated** | Nothing in any transcript supports it. |
+| **Implied, not stated** | It&#x27;s an inference, a paraphrase that adds meaning, or a gap filled by Automized (e.g. an assumed hand-off, an assumed owner, &quot;scheduled&quot; when nobody said so). |
+| **Wrong source** | Only supported by an interviewer, a survey read-back, a playbook or the D1 inventory, not by a client. |
+| **Misattributed** | Said by a client, but about a different role, store, process or time than the map shows. |
+| **Overstated** | The idea is real but the map makes it stronger, more general or more certain (&quot;all stores&quot; from one person, a one-off made into a standard step). |
+| **Pain point mismatch** | The quote wasn&#x27;t a complaint, or belongs to a different lane. |
+| **Sticky answered** | A TO CONFIRM note that a transcript already answers. Give the answer and cite it. |
+| **Missing (in scope)** | Stated in transcripts, belongs on this map, and isn&#x27;t on it. |
+| **Belongs on another map** | Stated, but out of scope for this one. Name the map. |
+
+Also flag any break of the Maps skill content rules, since those are errors too: software named as a lane, a person&#x27;s name in task text, judgments or assessments, more than 3 bullets, frequency chips, a file name in bold without being stated (and no sticky), or more than one icon.
+
+Be strict. If you can&#x27;t find support, don&#x27;t soften it to &quot;probably fine&quot;. If a timestamp in the existing cross-check doc doesn&#x27;t hold up, say so.
+
+## 4. Report
+
+Reply in chat with:
+
+1. One line: which map, how many transcripts checked, and the count per category.
+2. A table of every problem row (everything that isn&#x27;t Supported), grouped by category in the order above: map element | what the map says | what the transcripts say (quote, speaker, timestamp) | suggested fix.
+3. Supported rows collapsed to a short count, not listed, unless Fran asks.
+
+Keep wording plain and short. No names of Automized staff as sources.
+
+## 5. Save
+
+Write the full audit (all rows, including Supported with citations) to the client project as `claude/&lt;MapName&gt;_Check_&lt;YYYY-MM-DD&gt;.md` with `project_write`. Don&#x27;t overwrite the original cross-check doc. Tell Fran the file name, and ask whether she wants any fixes applied with the Maps skill.</code></pre></details>
+  </section>
+  <section class="skill" aria-labelledby="email">
+    <div class="skhead"><p class="file">email/SKILL.md · 103 lines</p><h2 id="email">Follow-up email composer</h2></div>
+    <p>Turns meeting notes, a transcript or a summary into a polished follow-up email and stages it with an Open in Mail button that hands the draft to Outlook.</p>
+    <p style="margin:6px 0 0"><b>Outcome:</b> Shared with clients 50+ times so they can generate an email with AI and open it in Outlook to send.</p>
+    <ul class="points"><li>Builds a skimmable recap: thank-you, key points, numbered next steps and attachment references</li><li>Names attachments instead of pasting file contents into the body</li><li>Uses a tested button pattern so the draft opens in the user&#x27;s default mail app</li><li>Never auto-sends, so the user always reviews before sending</li></ul>
+    <div class="tags"><span>Outlook</span><span>mailto</span><span>Widgets</span></div>
+    <details><summary>View the full SKILL.md</summary><pre><code>---
+name: email
+description: Draft a professional follow-up email and stage it inline in chat with an &quot;Open in Mail&quot; button that hands the draft to the user&#x27;s default mail app (e.g. Outlook) for review and send. Use whenever the user asks to &quot;draft a follow-up&quot;, &quot;write a recap email&quot;, &quot;send a follow-up email&quot;, &quot;compose an email&quot;, or wants a meeting/training/call follow-up turned into an email they can hand off to their mail app. Also trigger when the user provides source material (a summary, transcript, notes, or reference doc) and asks for an email based on it. This skill always references attachments by name and prompts the user to attach the files themselves rather than embedding file contents — use it any time supporting files should be attached but not pasted into the body.
+---
+
+# Email
+
+Compose a polished follow-up email from the user&#x27;s source material and stage it inline in chat with an **Open in Mail** button that hands the draft to the user&#x27;s default mail app (e.g. Outlook), so the user does the final review and send. Supporting files are referenced as attachments and the user is prompted to attach them — file contents are never embedded in the email body.
+
+## Why this matters
+
+The user wants a ready-to-review draft they can hand to Outlook (or their mail app), not a message that gets auto-sent and not a wall of pasted document content. Mail apps handle real attachments far better than inline HTML or copied text, so the email should *name* the attachments and let the user drag them in. This keeps the body clean and the message professional.
+
+## Workflow
+
+### 1. Gather what you need
+
+Before composing, make sure you have:
+
+- **Source material** — the content the email is based on (a meeting/training summary, transcript, notes, or a reference doc). If the user uploaded files, read them to extract the substance: who was involved, what was covered, decisions made, and action items.
+- **Recipient** — who the email is to. If unknown, leave the To field empty and tell the user to add it.
+- **Sender** — who it&#x27;s from (sign-off name). Infer from context/memory if available.
+- **Tone** — default to warm-but-professional unless the user specifies otherwise.
+
+If the source material is thin or missing, ask one focused question rather than guessing. Otherwise proceed.
+
+### 2. Compose the email
+
+Write a clean, skimmable follow-up. A reliable structure:
+
+- **Opening line** — thank them / acknowledge the meeting or interaction, one or two sentences, specific to context.
+- **Recap** — the key points covered, as a short bulleted list. Keep each bullet to a lead phrase plus a sentence.
+- **Action items / next steps** — a short numbered list of what the recipient should do, in priority order.
+- **Attachment reference** — explicitly mention the attached file(s) by name and what each is for (see below).
+- **Close** — an offer to help further, then the sign-off.
+
+Keep it tight. Pull real specifics from the source material (names, counts, concrete outcomes) so it reads like a genuine recap, not a template. Verify any specific claim against the source rather than inventing detail.
+
+### 3. Reference attachments — do NOT embed file contents
+
+This is the core rule of the skill. When the email is based on or accompanied by files:
+
+- **Name each attachment** in the body and say what it is — e.g., &quot;I&#x27;ve attached today&#x27;s session summary and the Getting Started playbook for reference.&quot;
+- **Never paste the file&#x27;s contents** (HTML, full text, tables) into the email body. The files travel as real attachments, not inline text. `mailto:` links cannot carry file attachments at all — the user must attach them manually in the mail app.
+- Use the actual filenames where known so the user knows exactly which files to attach.
+
+### 4. Stage with the Open in Mail button
+
+Render the draft inline in chat using the visualization tool (`mcp__visualize__show_widget`). If this is the first widget call in the session, call `mcp__visualize__read_me` with `modules: [&quot;interactive&quot;]` first.
+
+Build the widget as a small card showing To / Subject / a preview of the body, with a button that opens the user&#x27;s default mail app.
+
+**Build the mailto URL:**
+
+- `mailto:&lt;recipient-or-empty&gt;?subject=&lt;url-encoded subject&gt;&amp;body=&lt;url-encoded body&gt;`
+- URL-encode the subject and body (spaces as `%20`, commas as `%2C`, line breaks as `%0D%0A`, etc.).
+- If the recipient is unknown, leave it blank: `mailto:?subject=...&amp;body=...`.
+
+**Known gotcha — use a button + `openLink()`, not a plain link:**
+
+A plain `&lt;a href=&quot;mailto:...&quot;&gt;` does NOT work inside the chat widget — the widget renders in a sandboxed iframe that only intercepts `http(s)` links, so `mailto:` clicks are silently swallowed. The confirmed working pattern is a `&lt;button&gt;` with a click handler that calls the widget&#x27;s global `openLink()` function:
+
+```html
+&lt;button id=&quot;open-mail-btn&quot;&gt;Open in Mail&lt;/button&gt;
+&lt;script&gt;
+var mailtoUrl = &quot;mailto:RECIPIENT?subject=SUBJECT&amp;body=BODY&quot;;
+document.getElementById(&#x27;open-mail-btn&#x27;).addEventListener(&#x27;click&#x27;, function() {
+  if (typeof openLink === &#x27;function&#x27;) {
+    openLink(mailtoUrl);
+  } else {
+    window.location.href = mailtoUrl;
+  }
+});
+&lt;/script&gt;
+```
+
+This has been tested and confirmed to successfully open Outlook (or whatever mail app is set as the OS default) with the To, subject, and body pre-filled. Note this depends on the user having a default mail app configured on their OS — if nothing happens when they click, that&#x27;s a system setting (Windows: Settings &gt; Apps &gt; Default apps &gt; Mail/MAILTO), not a bug in the draft.
+
+### 5. Prompt the user to attach files and fill the recipient
+
+After staging, end with a brief note that does two things:
+
+- Tells the user to **attach the referenced file(s) by name** before sending (list the filenames).
+- Reminds them to **add the recipient** in the To field if it wasn&#x27;t known/included in the mailto link.
+
+Then offer light follow-ups (adjust tone, shorten, split out the recap). Keep this closing note short — the draft is the deliverable.
+
+## Example closing note to the user
+
+&gt; Drafted and ready above — hit **Open in Mail** to drop it into your mail app for review and send.
+&gt;
+&gt; Two things before you send: attach `summary.docx` and `playbook.pdf` (the email references them), and add the recipient&#x27;s address in the To field.
+&gt;
+&gt; Want me to adjust the tone, trim it down, or pull the recap into a shorter note?
+
+## Guardrails
+
+- **Never auto-send.** This skill stages a draft for human review only. The user hits send.
+- **Don&#x27;t fabricate recipients or email addresses.** If you don&#x27;t know the address, leave it out of the mailto URL and prompt the user.
+- **One variant unless the user signals competing goals.** A recap follow-up has one clear job; multiple strategic variants are for higher-stakes messages (negotiation, bad news, pushback).
+- **Body stays clean.** No pasted document contents, no inline HTML dumped into the email, no giant quoted blocks — attachments carry the source material.
+- **Always use the button + `openLink()` pattern**, never a plain `&lt;a href=&quot;mailto:...&quot;&gt;`, inside the chat widget.
+</code></pre></details>
+  </section>
+  <section class="why" aria-labelledby="why">
+    <h2 id="why">What these show</h2>
+    <ul class="points">
+      <li><b>Accuracy by design.</b> The map skills only allow content a client actually said, and the audit skill checks that independently.</li>
+      <li><b>Human in the loop.</b> Nothing is auto-sent or silently changed. The analyst reviews and decides.</li>
+      <li><b>Repeatable quality.</b> Written rules and visual standards mean every map and email comes out the same way, whoever runs the skill.</li>
+    </ul>
+  </section>
+  <p class="note">Client names, people and client systems are replaced with generic labels.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

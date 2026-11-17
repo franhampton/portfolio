@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IT Leadership Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f7f8f7;--surface:#ffffff;--ink:#2b3233;--muted:#667072;--line:#dde3e1;--accent:#5f7f86;--accent-soft:#e6eeee;
+  --good:#2f6b3f;--good-soft:#e4f1e7;--bad:#97353a;--bad-soft:#f7e3e3;--warn:#8a5420;--warn-soft:#f8e9dc;
+  --display:"Spectral",Georgia,serif;--body:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)} h2{font-size:1.4rem} h3{font-size:1.08rem}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header,section{display:flex;flex-direction:column;gap:14px}
+ul.points,ol.points{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px}
+.points li{max-width:68ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{padding:14px 16px;border-top:2px solid var(--accent);background:var(--surface)}
+.stat b{display:block;font-family:var(--display);font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:.9rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.tag{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.84rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:4px;padding:14px 18px}
+.callout p{max-width:none}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.p-good{background:var(--good-soft);color:var(--good)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-warn{background:var(--warn-soft);color:var(--warn)}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.compare ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.compare li{position:relative;padding-left:24px}
+.good li::before{content:"\2713";position:absolute;left:0;color:var(--good);font-weight:700}
+.bad li::before{content:"\2715";position:absolute;left:0;color:var(--bad);font-weight:700}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.tl{background:var(--surface);border-top:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tl .yr{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tl b{font-weight:600}
+.tl span{font-size:.9rem;color:var(--muted)}
+.waves{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.wave{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.wave .when{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.wave ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:.93rem}
+.qa{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa b{font-weight:600}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">IT leadership case study</p>
+    <h1>Building an IT department from the ground up</h1>
+    <p class="lede">Over 11 years as IT Manager at Mid-South Roof Systems, a $90M+ roofing contractor with 300 employees across two locations, I founded the IT department and took it from on-premises servers and paper to the cloud, strong security and remote-ready operations.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> IT Manager at Mid-South Roof Systems. I founded and led the IT department.</p></div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><b>23% → 82%</b><span>security score in one month</span></div>
+    <div class="stat"><b>300</b><span>employees moved to remote work in 2020</span></div>
+    <div class="stat"><b>27,000+</b><span>support tickets, 98.8% satisfaction</span></div>
+    <div class="stat"><b>80%</b><span>less paper with digital workflows</span></div>
+  </div>
+
+  <section aria-labelledby="start">
+    <h2 id="start">The starting point</h2>
+    <p>The company had no IT department. I founded it and grew it to support 300 users and 580+ Windows and Apple devices across two locations, starting from infrastructure that ran on premises.</p>
+  </section>
+
+  <section aria-labelledby="security">
+    <h2 id="security">Security: 23% to 82% in one month</h2>
+    <p>I raised the Entra (Azure) security score from 23% to 82% in a single month by turning on multi-factor authentication, blocking legacy authentication, and deploying SentinelOne, Huntress and BitLocker. I also created and tested disaster recovery and business continuity plans, deployed OneDrive backup for 130 accounts, and chaired the committee that added keycard access and CCTV.</p>
+  </section>
+
+  <section aria-labelledby="cloud">
+    <h2 id="cloud">Moving to the cloud</h2>
+    <ul class="points">
+      <li>Migrated 120 AD accounts to Entra ID (Azure AD) and 130 users to Office 365</li>
+      <li>Moved file shares to a 2 TB SharePoint site</li>
+      <li>Rolled out Smartsheet and Microsoft Teams, and a VoIP upgrade that included a Webex migration integrated with Teams</li>
+    </ul>
+    <p>That groundwork paid off in 2020, when I moved all 300 employees to remote work at the start of the pandemic.</p>
+  </section>
+
+  <section aria-labelledby="ops">
+    <h2 id="ops">Running IT like a service</h2>
+    <div class="grid">
+      <div class="card"><span class="tag">Support</span><p>Resolved 27,000+ tickets through Atera with a 98.8% satisfaction rate, using AnyDesk for remote support.</p></div>
+      <div class="card"><span class="tag">Process</span><p>Wrote 10 IT standard operating procedures and policies, from ticketing and cybersecurity to onboarding and offboarding.</p></div>
+      <div class="card"><span class="tag">Training</span><p>Built SharePoint sites and a 4,000+ video training library on Outlook, Excel, Word, Dataforma and Terial.</p></div>
+      <div class="card"><span class="tag">Projects</span><p>Introduced a "Project Champion" system for ownership across departments on time and attendance, Power BI and collaboration projects.</p></div>
+      <div class="card"><span class="tag">Process mapping</span><p>Interviewed staff and held review sessions to map processes for 10 departments in Visio and Lucidchart, informing software decisions.</p></div>
+      <div class="card"><span class="tag">Vendors</span><p>Negotiated and managed agreements with 60+ vendors and upgraded 200+ devices.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="lessons">
+    <h2 id="lessons">What carried into my consulting work</h2>
+    <ul class="points">
+      <li><b>Security and continuity first,</b> because everything else depends on them.</li>
+      <li><b>Process before software.</b> Mapping how departments really worked kept technology decisions grounded.</li>
+      <li><b>Adoption is the job.</b> Training libraries, plain-language updates to leadership and project champions made the changes stick.</li>
+    </ul>
+  </section>
+  <p class="note">Results from my time as IT Manager at Mid-South Roof Systems, 2012 to 2023.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

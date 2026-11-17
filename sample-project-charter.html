@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Project Charter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff; --ink:#2b3233; --muted:#667072; --line:#dde3e1;
+  --accent:#5f7f86; --accent-soft:#e6eeee;
+  --display:"Spectral", Georgia, serif; --body:"Public Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1c2122; --surface:#232a2b; --ink:#e3e8e7; --muted:#9aa5a6; --line:#344041;
+  --accent:#8fb0b6; --accent-soft:#2b3637; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c2122; --surface:#232a2b; --ink:#e3e8e7; --muted:#9aa5a6; --line:#344041;
+  --accent:#8fb0b6; --accent-soft:#2b3637; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)}
+h2{font-size:1.35rem;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-family:var(--body);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+header{display:flex;flex-direction:column;gap:12px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.9rem;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:16px}
+.lede{font-size:1.05rem}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+li{max-width:68ch}
+.objectives{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.obj{background:var(--surface);border-top:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.obj ul{font-size:.93rem;color:var(--ink)}
+.obj b{font-weight:600}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.85rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.cols div{display:flex;flex-direction:column;gap:8px;min-width:0}
+.pill{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--accent-soft)}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Project charter · sample</p>
+    <h1>Dataforma Service Implementation Strategic Planning</h1>
+    <div class="meta"><span>Client: multi-business-unit roofing and construction company</span><span>Version 1.3</span><span>Prepared by Fran Hampton</span></div>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Authored the project charter for integrating Dataforma service operations with NetSuite across all business units.</p><p style="margin:0;max-width:none"><b>Outcome:</b> The charter was accepted by the client.</p></div>
+  </header>
+
+  <section aria-labelledby="summary">
+    <h2 id="summary">Executive summary</h2>
+    <p class="lede">Dataforma will remain the company's service management software and must be integrated with the new NetSuite ERP. The integration should eliminate the manual upload and reconciliation between the two systems.</p>
+    <p>It is also an opportunity to align Dataforma with the standard job codes and chart of accounts, improving reporting on service gross margin, customer and contract profitability, and operational efficiency, so management has actionable data to improve service profitability.</p>
+    <p>Deciding where Dataforma fields can be standardized, and which functions should push data from Dataforma versus pull it from the accounting system, will be critical to real-time reporting and better service oversight.</p>
+  </section>
+
+  <section aria-labelledby="purpose">
+    <h2 id="purpose">Purpose</h2>
+    <ul>
+      <li>Maximize actionable data, standard costing and reporting from Dataforma to support better management and service profitability.</li>
+      <li>Integrate Dataforma with NetSuite to eliminate manual double entry and reconciliation between Dataforma and the accounting system.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="objectives">
+    <h2 id="objectives">Project objectives</h2>
+    <div class="objectives">
+      <div class="obj"><h3>Financial visibility</h3><ul>
+        <li>Make NetSuite the primary system of record for financial information while keeping centralized reporting in Dataforma.</li>
+        <li>Develop and maintain a standard cost code structure across all business units, mapped consistently between Dataforma and NetSuite.</li>
+        <li>Align and validate the mapping from Dataforma job costing categories to standard cost codes and the chart of accounts.</li>
+      </ul></div>
+      <div class="obj"><h3>Standard costing</h3><ul>
+        <li>Plan the standard costing implementation.</li>
+        <li>Establish a framework for materials and labor.</li>
+      </ul></div>
+      <div class="obj"><h3>Integration points</h3><ul>
+        <li><b>AR billing:</b> decide whether invoices are issued from NetSuite or Dataforma.</li>
+        <li><b>AP purchasing:</b> link vendor invoices to service jobs for accurate job costing.</li>
+        <li><b>Payroll timekeeping:</b> decide where technicians enter hours and how the data syncs.</li>
+      </ul></div>
+      <div class="obj"><h3>Workflow and internal controls</h3><ul>
+        <li><b>Ticket approval:</b> define who reviews and approves service tickets before billing.</li>
+        <li><b>Change orders:</b> set a process for scope changes that syncs between systems so revenue and cost stay aligned.</li>
+        <li><b>Billing review:</b> decide whether invoices are finalized in Dataforma or the accounting system.</li>
+        <li><b>Audit trail:</b> keep labor and materials traceable to jobs in both systems.</li>
+      </ul></div>
+      <div class="obj"><h3>Reporting and KPIs</h3><ul>
+        <li><b>Service profitability</b> by job, customer, technician or service type.</li>
+        <li><b>Backlog and scheduling:</b> connect the Dataforma service calendar to ERP reporting on unbilled jobs.</li>
+        <li><b>Aging and collections:</b> reconcile AR aging with service invoices.</li>
+        <li><b>Contract tracking:</b> compare margin on service contracts with one-off repairs.</li>
+      </ul></div>
+      <div class="obj"><h3>Timekeeping</h3><ul>
+        <li>Decide how timekeeping is handled and align it with the overall timekeeping and payroll system.</li>
+      </ul></div>
+      <div class="obj"><h3>Service impact</h3><ul>
+        <li>Review Dataforma service functionality by business unit to define the remediation needed to move from the Dataforma accounting engine to NetSuite.</li>
+        <li>Identify the template standardization needed across business units for accounting and financial processes.</li>
+        <li>Create custom remediation plans for workflows that can't be integrated through standard methods.</li>
+      </ul></div>
+      <div class="obj"><h3>Business unit impact</h3><ul>
+        <li>Understand each business unit's workflows and how the change affects them.</li>
+        <li>Establish a standard governance framework to manage workflows and track Dataforma changes.</li>
+      </ul></div>
+      <div class="obj"><h3>Vendor engagement</h3><ul>
+        <li>Work with Dataforma through advisory committees and direct communication on integration opportunities and challenges.</li>
+        <li>Evaluate technical options, focusing on direct integration with NetSuite.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="scope">
+    <h2 id="scope">Project scope</h2>
+    <div class="cols">
+      <div><h3>Inclusions</h3><ul>
+        <li>Analysis of Dataforma cost codes and mapping to standard cost codes and the chart of accounts</li>
+        <li>Standardization opportunities across Dataforma licenses</li>
+        <li>Which functions move from Dataforma to NetSuite, and vice versa</li>
+        <li>Configuration for standard costing of materials and labor</li>
+        <li>Configuration standards and inputs into NetSuite</li>
+        <li>Stakeholder review and approval process</li>
+        <li>Training and communication materials</li>
+      </ul></div>
+      <div><h3>Exclusions</h3><ul>
+        <li>Evaluation of alternative service software</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="gov">
+    <h2 id="gov">Project governance</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Role</th><th>Responsibilities</th><th>Assigned to</th><th>Reports to</th></tr></thead>
+      <tbody>
+        <tr><td>Executive sponsors</td><td>Oversee project progress and facilitate final approval of project outputs from the steering committee</td><td>Daniel Morgan, Ellen Roberts</td><td>N/A</td></tr>
+        <tr><td>Project team</td><td>Resolve the decisions needed to compile a draft library of job cost codes, and finalize them with executives</td><td>Project leader: Teresa Lyons<br>SME: Mark Davis<br>Team: Mark Davis, Fran Hampton, Greg Hollis and a regional business unit representative</td><td>Executive sponsors</td></tr>
+        <tr><td>Third-party guidance (as needed)</td><td>Share real-world experience with NetSuite, Dataforma and the NetSuite implementation partner on job costing and job cost code setup</td><td>Resources from Dataforma, NetSuite and the implementation partner</td><td>Project team</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="timeline">
+    <h2 id="timeline">Approximate timeline</h2>
+    <p>The project runs through a series of in-person and virtual workshops to ensure stakeholder engagement, thorough review and effective implementation planning. Business-unit-specific implementation and communication plans are developed in the final weeks.</p>
+  </section>
+
+  <section aria-labelledby="matrix">
+    <h2 id="matrix">Integration scope matrix</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Area</th><th>Source</th><th>Destination</th><th>Direction</th><th>Frequency</th></tr></thead>
+      <tbody>
+        <tr><td>Job</td><td>Dataforma</td><td>NetSuite</td><td>One-way</td><td>Daily</td></tr>
+        <tr><td>Service ticket</td><td>Dataforma</td><td>NetSuite</td><td>One-way</td><td>Daily</td></tr>
+        <tr><td>Customer</td><td>Dataforma</td><td>NetSuite</td><td>Bi-directional</td><td>Real time</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="principles">
+    <h2 id="principles">Assumptions and guiding principles</h2>
+    <div class="cols">
+      <div><h3>Key assumptions</h3><ul>
+        <li><b>Uniformity:</b> the cost code library applies across all business units for consolidated reporting.</li>
+        <li><b>Scalability:</b> the library accommodates future growth, new business units and new business lines.</li>
+        <li><b>Data integrity:</b> source data from the estimating system and Dataforma is reliable and maps cleanly.</li>
+        <li><b>Technology fit:</b> the cost codes feed directly into the NetSuite configuration.</li>
+        <li><b>Engagement:</b> key stakeholders in the governance table stay actively involved.</li>
+      </ul></div>
+      <div><h3>Guiding principles</h3><ul>
+        <li><b>Business alignment:</b> optimize Dataforma for actionable data and strong customer and technician KPIs that support target margin.</li>
+        <li><b>Margin improvement:</b> enable standard costing for labor and materials.</li>
+        <li><b>Integration:</b> automate communication between systems and eliminate double entry and manual reconciliation.</li>
+        <li><b>Governance:</b> document and publish the structure, coding conventions and usage policies, with a process for updates.</li>
+        <li><b>Change management:</b> train every business unit for smooth adoption.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="deps">
+    <h2 id="deps">Dependencies and deliverables</h2>
+    <div class="cols">
+      <div><h3>Critical dependencies</h3><ul>
+        <li>NetSuite environment and chart of accounts finalized</li>
+        <li>Dataforma API access, including unpublished APIs where needed</li>
+        <li>Data cleanup between systems</li>
+        <li>Middleware readiness</li>
+        <li>Other metadata mapped between Dataforma and NetSuite</li>
+        <li>Integration architecture and documentation</li>
+      </ul></div>
+      <div><h3>Deliverables</h3><ul>
+        <li>Proposed changes to the current Dataforma setup</li>
+        <li>Documentation of which processes and data live in Dataforma and push to NetSuite, and vice versa</li>
+        <li>Requirements and plan for standard costs</li>
+        <li>Business-unit-level migration and mapping crosswalk</li>
+        <li>Inputs for NetSuite configuration specifications</li>
+        <li>Business-unit-level training and communication plan</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="success">
+    <h2 id="success">Success criteria</h2>
+    <ul>
+      <li>Manual uploads between Dataforma and NetSuite fully eliminated</li>
+      <li>100% alignment of cost codes and the chart of accounts</li>
+      <li>Job cost codes standardized in the ERP and built into business unit systems and key processes</li>
+      <li>Clear methods for entering all estimate types into NetSuite, including service maintenance, equipment rental, HVAC, waterproofing, restoration and other work not estimated in the estimating system</li>
+      <li>More accurate, consistent classification and financial reporting across the estimating system, Dataforma and NetSuite</li>
+      <li>Invoice reconciliation between systems, or exception reporting on transactions</li>
+      <li>Error handling and resolution management inside NetSuite, with the integration tested and accepted before production</li>
+      <li>Over 85% positive end-user feedback during testing and training</li>
+      <li>A governance team that meets regularly to maintain the enterprise code structure</li>
+      <li>Change management with a regular communication cadence, business-unit-specific training, training documentation and post-go-live feedback</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="rev">
+    <h2 id="rev">Revision history</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Version</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>1.0</td><td>Revisions from the initial meeting with the executive sponsors and finance leadership</td></tr>
+        <tr><td>1.1</td><td>Additions from the leadership team follow-up</td></tr>
+        <tr><td>1.2</td><td>Added service and business unit impact, financial visibility and vendor engagement; grammatical corrections (Fran Hampton)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

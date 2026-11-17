@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Guide Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f7f8f7;--surface:#ffffff;--ink:#2b3233;--muted:#667072;--line:#dde3e1;--accent:#5f7f86;--accent-soft:#e6eeee;
+  --good:#2f6b3f;--good-soft:#e4f1e7;--bad:#97353a;--bad-soft:#f7e3e3;--warn:#8a5420;--warn-soft:#f8e9dc;
+  --display:"Spectral",Georgia,serif;--body:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)} h2{font-size:1.4rem} h3{font-size:1.08rem}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header,section{display:flex;flex-direction:column;gap:14px}
+ul.points,ol.points{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px}
+.points li{max-width:68ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{padding:14px 16px;border-top:2px solid var(--accent);background:var(--surface)}
+.stat b{display:block;font-family:var(--display);font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:.9rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.tag{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.84rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:4px;padding:14px 18px}
+.callout p{max-width:none}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.p-good{background:var(--good-soft);color:var(--good)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-warn{background:var(--warn-soft);color:var(--warn)}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.compare ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.compare li{position:relative;padding-left:24px}
+.good li::before{content:"\2713";position:absolute;left:0;color:var(--good);font-weight:700}
+.bad li::before{content:"\2715";position:absolute;left:0;color:var(--bad);font-weight:700}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.tl{background:var(--surface);border-top:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tl .yr{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tl b{font-weight:600}
+.tl span{font-size:.9rem;color:var(--muted)}
+.waves{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.wave{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.wave .when{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.wave ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:.93rem}
+.qa{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa b{font-weight:600}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Plain-English AI guide</p>
+    <h1>Why everyone's suddenly talking about AI</h1>
+    <p class="lede">A four-minute guide I wrote for business people who are new to AI: no hype, no jargon, just what AI actually is, why it's suddenly everywhere and where it can help at work. Versions of my guides were published on LinkedIn.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Wrote the guide as one of my plain-English AI guides, published on LinkedIn.</p></div>
+  </header>
+
+  <section aria-labelledby="g1">
+    <h2 id="g1">What AI actually is</h2>
+    <p>Think of AI as a new hire who read nearly every book, article and manual ever written, and started at your company one hour ago. It writes well, knows a lot and never gets tired or cranky. But it doesn't know your clients, your file names or the unwritten rule that Steve likes his bids formatted a certain way.</p>
+  </section>
+  <section aria-labelledby="g2">
+    <h2 id="g2">It writes a new answer. It doesn't look one up.</h2>
+    <p>Google finds pages other people already wrote. AI writes a brand-new answer, word by word, based on patterns it learned. That's why it can draft, summarize and explain things a search engine can't.</p>
+    <div class="callout"><p>It also means AI can sound confident while being wrong, especially on specific details. This is called a "hallucination." Always double-check anything that matters before you rely on it.</p></div>
+  </section>
+  <section aria-labelledby="g3">
+    <h2 id="g3">Are all AIs created equal?</h2>
+    <p>Not every AI tool remembers past tasks. Memory means the tool can recall details from earlier conversations, like your preferences or a project you're working on, instead of starting from zero every time. Some tools, like Claude, offer memory as an optional feature you can turn on.</p>
+    <p>Without it, think of the AI as a specialist who has read an enormous amount and can help you brilliantly in the moment. But once your conversation ends, they walk away remembering nothing about it. The next time you talk, you're meeting them for the first time again.</p>
+  </section>
+  <section aria-labelledby="g4">
+    <h2 id="g4">This isn't new. The last few years are.</h2>
+    <p>Researchers have worked on AI since 1956. What changed recently is that computing power, data and a design breakthrough finally made it good enough for everyday work.</p>
+    <div class="timeline">
+      <div class="tl"><span class="yr">1950s–1990s</span><b>The long research phase</b><span>Decades of academic progress, mostly in research labs and narrow tasks like chess engines.</span></div>
+      <div class="tl"><span class="yr">2012–2017</span><b>The building blocks click into place</b><span>A 2012 breakthrough in pattern recognition, then a 2017 design (the "transformer") that let AI track context across a whole passage.</span></div>
+      <div class="tl"><span class="yr">2020–2022</span><b>Scale changes everything</b><span>Companies trained these systems at a scale nobody had tried before, and the results crossed into genuinely fluent text.</span></div>
+      <div class="tl"><span class="yr">2023–today</span><b>From novelty to normal business tool</b><span>Now built into how ordinary businesses draft, analyze and manage their day, with a human still checking the output.</span></div>
+    </div>
+  </section>
+  <section aria-labelledby="g5">
+    <h2 id="g5">Where it's already helping</h2>
+    <div class="grid">
+      <div class="card"><span class="tag">Construction</span><p>Turn a stack of field reports into a one-page summary by job site, in minutes instead of an hour.</p></div>
+      <div class="card"><span class="tag">Legal and contracts</span><p>Flag unusual clauses in a vendor agreement before a lawyer reviews it.</p></div>
+      <div class="card"><span class="tag">Finance</span><p>Compare two spreadsheets and flag every difference over a set dollar amount.</p></div>
+      <div class="card"><span class="tag">Customer service</span><p>Draft a reply to a common question in seconds, then personalize it.</p></div>
+      <div class="card"><span class="tag">Retail and marketing</span><p>Draft a dozen product descriptions in minutes, then edit each for brand voice.</p></div>
+      <div class="card"><span class="tag">Healthcare admin</span><p>Turn scheduling notes and appointment requests into a clean, organized weekly calendar.</p></div>
+    </div>
+  </section>
+  <section aria-labelledby="g6">
+    <h2 id="g6">Good at vs. still needs a human</h2>
+    <div class="compare">
+      <div class="card"><h3>Genuinely good at</h3><ul class="good">
+        <li>Reading long documents fast</li><li>Drafting a first version of something</li><li>Cleaning up messy information</li><li>Explaining new ideas in plain language</li><li>Handling repetitive busywork</li></ul></div>
+      <div class="card"><h3>Still needs a human</h3><ul class="bad">
+        <li>Anything with real consequences: legal, medical or financial sign-off</li><li>Judgment calls tied to company history or relationships</li><li>Checking its own facts</li><li>Understanding your specific business</li><li>Owning the final decision</li></ul></div>
+    </div>
+  </section>
+  <section aria-labelledby="g7">
+    <h2 id="g7">Three straight answers</h2>
+    <div class="card">
+      <div class="qa"><b>How do I know it's right?</b><p>You don't, automatically. Treat its work like a draft from a smart, brand-new employee: a strong start that still needs a human to check before it goes out the door.</p></div>
+      <div class="qa"><b>Will it take people's jobs?</b><p>It's changing which tasks fill a person's day, the way spreadsheets changed bookkeeping. It removes busywork so people spend more time on judgment calls and relationships.</p></div>
+      <div class="qa"><b>Is it storing everything I type?</b><p>It depends on the tool. Good business AI tools keep conversations private, don't use them to train the AI for other companies, and only see the files or programs you connect. Check the privacy policy before entering anything sensitive, the same rule you'd use for any new software.</p></div>
+    </div>
+  </section>
+  <section aria-labelledby="g8">
+    <h2 id="g8">Why businesses are moving now</h2>
+    <p>The gap between businesses that have automated their repetitive work and those that haven't is starting to show up in real numbers: how fast a bid goes out, how quickly a question gets answered.</p>
+    <p>It usually starts small: one tedious task, handed to a tool, checked by a human, refined until it's reliable. The businesses getting the most value aren't the ones using the most AI. They're the ones who picked a few real tasks and stuck with them.</p>
+    <div class="callout"><p><b>Bottom line.</b> You don't need to understand how AI works to benefit from it, just like you don't need to understand an engine to drive a car. The best first step isn't "adopt AI." It's picking the one task you dread most and seeing if AI can help with just that.</p></div>
+  </section>
+  <p class="note">Written by Fran Hampton. Shown here in the portfolio's style.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

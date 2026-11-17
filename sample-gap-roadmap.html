@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gap Analysis Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f7f8f7;--surface:#ffffff;--ink:#2b3233;--muted:#667072;--line:#dde3e1;--accent:#5f7f86;--accent-soft:#e6eeee;
+  --good:#2f6b3f;--good-soft:#e4f1e7;--bad:#97353a;--bad-soft:#f7e3e3;--warn:#8a5420;--warn-soft:#f8e9dc;
+  --display:"Spectral",Georgia,serif;--body:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)} h2{font-size:1.4rem} h3{font-size:1.08rem}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header,section{display:flex;flex-direction:column;gap:14px}
+ul.points,ol.points{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px}
+.points li{max-width:68ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{padding:14px 16px;border-top:2px solid var(--accent);background:var(--surface)}
+.stat b{display:block;font-family:var(--display);font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:.9rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.tag{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.84rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:4px;padding:14px 18px}
+.callout p{max-width:none}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.p-good{background:var(--good-soft);color:var(--good)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-warn{background:var(--warn-soft);color:var(--warn)}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.compare ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.compare li{position:relative;padding-left:24px}
+.good li::before{content:"\2713";position:absolute;left:0;color:var(--good);font-weight:700}
+.bad li::before{content:"\2715";position:absolute;left:0;color:var(--bad);font-weight:700}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.tl{background:var(--surface);border-top:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tl .yr{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tl b{font-weight:600}
+.tl span{font-size:.9rem;color:var(--muted)}
+.waves{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.wave{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.wave .when{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.wave ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:.93rem}
+.qa{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa b{font-weight:600}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Gap analysis and roadmap · sample</p>
+    <h1>From interview findings to a costed 12-month roadmap</h1>
+    <p class="lede">How I turn what stakeholders tell me into a business case: find the gaps, show what they cost, then sequence the fixes into waves leadership can approve. The figures come from my assessment work: $230K in phantom inventory and quadruple data entry, and a $999K-a-year, three-wave roadmap for an $80M B2B organization.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Identified the gaps through stakeholder interviews and process mapping; my findings fed the 12-month, three-wave roadmap and the opportunity sizing.</p></div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><b>$230K</b><span>in phantom inventory found</span></div>
+    <div class="stat"><b>4×</b><span>the same data keyed by hand</span></div>
+    <div class="stat"><b>3</b><span>waves across a 12-month roadmap</span></div>
+    <div class="stat"><b>$999K</b><span>yearly opportunity sized</span></div>
+  </div>
+
+  <section aria-labelledby="how">
+    <h2 id="how">How the analysis works</h2>
+    <div class="grid">
+      <div class="card"><span class="tag">1 · Listen</span><p>Interview people in every role, from the counter and warehouse to finance and leadership, and record who said what.</p></div>
+      <div class="card"><span class="tag">2 · Map</span><p>Build current-state process maps and validate them with the people who do the work.</p></div>
+      <div class="card"><span class="tag">3 · Find the gaps</span><p>Flag duplicate entry, manual workarounds, disconnected systems and data that can't be trusted.</p></div>
+      <div class="card"><span class="tag">4 · Size and sequence</span><p>Estimate what each gap costs, then order the fixes by value, effort and dependency.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="gaps">
+    <h2 id="gaps">What the gaps looked like</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Gap</th><th>What people described</th><th>Business impact</th><th>Severity</th></tr></thead>
+      <tbody>
+        <tr><td>Phantom inventory</td><td>Stock on the books that wasn't on the shelf, with counts reconciled by hand</td><td>$230K of inventory value that couldn't be trusted, plus lost sales and rush orders</td><td><span class="pill p-bad">High</span></td></tr>
+        <tr><td>Quadruple data entry</td><td>The same information keyed by hand into four different places</td><td>Hours of rework every week and errors at each handoff</td><td><span class="pill p-bad">High</span></td></tr>
+        <tr><td>Disconnected systems</td><td>Core systems that don't talk to each other, held together by exports and email</td><td>Late, inconsistent reporting and month-end delays</td><td><span class="pill p-warn">Medium</span></td></tr>
+        <tr><td>Manual reporting</td><td>Reports rebuilt in Excel by hand and emailed out</td><td>Leadership decisions made on old or conflicting numbers</td><td><span class="pill p-warn">Medium</span></td></tr>
+        <tr><td>Key-person dependency</td><td>Critical steps only one person knows how to do</td><td>Risk to operations when that person is out</td><td><span class="pill p-warn">Medium</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="roadmap">
+    <h2 id="roadmap">The 12-month, three-wave roadmap</h2>
+    <p>Each wave delivers value on its own and sets up the next, so the client can pause between waves without losing what they've gained.</p>
+    <div class="waves">
+      <div class="wave"><span class="when">Wave 1 · Months 1–3</span><h3>Stop the leaks</h3><ul>
+        <li>Fix inventory counts and receiving so the books match the shelf</li><li>Remove the most painful double entry with quick automations</li><li>Standardize the handful of reports leadership uses every week</li></ul></div>
+      <div class="wave"><span class="when">Wave 2 · Months 4–8</span><h3>Connect the systems</h3><ul>
+        <li>Integrate point of sale, billing and accounting so data is entered once</li><li>Retire spreadsheets that duplicate system data</li><li>Document and cross-train the key-person steps</li></ul></div>
+      <div class="wave"><span class="when">Wave 3 · Months 9–12</span><h3>Run on live data</h3><ul>
+        <li>Live dashboards instead of hand-built reports</li><li>Automated exception alerts for inventory and billing</li><li>A governance rhythm to keep processes and data clean</li></ul></div>
+    </div>
+    <div class="callout"><p><b>Sized opportunity: $999K per year</b>, across reduced manual effort, recovered revenue and lower risk, presented with the assumptions behind each estimate so leadership could test them.</p></div>
+  </section>
+
+  <section aria-labelledby="why">
+    <h2 id="why">Why this approach lands with leadership</h2>
+    <ul class="points">
+      <li><b>Every finding traces to a person.</b> Each gap ties back to what someone in that role actually said, so nothing reads as a consultant's opinion.</li>
+      <li><b>Dollars, not adjectives.</b> Sizing each gap turns "this is painful" into a number that can be weighed against cost.</li>
+      <li><b>Sequenced for momentum.</b> Early wins in Wave 1 build the trust and budget for the bigger integration work.</li>
+    </ul>
+  </section>
+  <p class="note">Client name and identifying details are removed. The headline figures match my real engagements; the gap descriptions, severities and wave contents are generalized for the sample.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<nav class="pf-back" style="max-width:1100px;margin:0 auto;padding:16px;font:600 14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif"><a href="index.html" style="color:#5f7f86;text-decoration:none">← Back to portfolio</a></nav>
+<div class="pf-role-wrap" style="padding:4px 16px 12px"><div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Built the reusable seven-deliverable package with AI and re-branded it for each new client.</p></div></div>
+
+<title>Sample Assessment Deliverables Package</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Public+Sans:wght@400;600;700;800&display=swap">
+<style>
+
+:root{
+  --surface:#FFFFFF; --surface-raised:#F7F8F7; --surface-tint:#E6EEEE; --line:#DDE3E1;
+  --ink:#2B3233; --ink-muted:#667072; --mentor-green:#A9C6CB; --green-text:#4E6C72;
+  --forest:#3D4F53; --forest-line:#5F7F86; --night:#2B3233; --on-green:#2B3233; --on-night:#FFFFFF;
+  --warning:#A8641C; --critical:#B03A3A; --page:#EEF1F0;
+  --sans:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --slab:"Spectral",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --surface:#232A2B; --surface-raised:#263031; --surface-tint:#2B3637; --line:#344041;
+  --ink:#E3E8E7; --ink-muted:#9AA5A6; --green-text:#8FB0B6; --forest-line:#8FB0B6;
+  --warning:#E0A458; --critical:#E58A8A; --page:#1C2122; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --surface:#232A2B; --surface-raised:#263031; --surface-tint:#2B3637; --line:#344041;
+  --ink:#E3E8E7; --ink-muted:#9AA5A6; --green-text:#8FB0B6; --forest-line:#8FB0B6;
+  --warning:#E0A458; --critical:#E58A8A; --page:#1C2122; color-scheme:dark}
+
+body{background:var(--page);color:var(--ink);font:400 15px/24px var(--sans)}
+.wrap{max-width:1120px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:32px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+.label{font:700 13px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase}
+.muted{color:var(--ink-muted)}
+.small{font-size:13px;line-height:20px}
+.num{font-variant-numeric:tabular-nums}
+
+/* review banner */
+.review{background:var(--surface-tint);border:1px solid var(--line);border-radius:2px;padding:16px 24px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline}
+.review p{min-width:0;flex:1 1 420px}
+
+/* sheet */
+.sheet{background:var(--surface);border:1px solid var(--line);min-width:0}
+.band{background:var(--night);color:var(--on-night);border-bottom:4px solid var(--mentor-green);padding:16px 24px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.band .who{font:700 13px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase}
+.band .who b{color:var(--mentor-green);font-weight:700}
+.stamp{background:var(--night);color:var(--on-night);border:1.5px solid #4A5759;border-radius:8px;padding:6px 12px;font:700 13px/16px var(--slab);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.stamp i{font-style:normal;color:var(--mentor-green)}
+.body{padding:24px;display:grid;gap:24px}
+.head{display:grid;gap:8px}
+.did{font:700 13px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase;color:var(--green-text)}
+.display-l{font:800 36px/38px var(--sans);text-transform:uppercase;letter-spacing:-.005em}
+.lede{max-width:68ch;color:var(--ink-muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font:700 12px/16px var(--slab);letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--line);color:var(--ink);background:var(--surface)}
+.chip.g{background:var(--mentor-green);color:var(--on-green);border-color:var(--mentor-green)}
+.chip.w{color:var(--warning);border-color:var(--warning)}
+.chip.c{color:var(--critical);border-color:var(--critical)}
+.chip.f{color:var(--green-text);border-color:var(--green-text)}
+.sample{font:700 11px/14px var(--slab);letter-spacing:.08em;text-transform:uppercase;color:var(--warning);border:1.5px dashed var(--warning);border-radius:4px;padding:2px 8px}
+
+/* cover */
+.cover .hero{background:var(--night);color:var(--on-night);padding-block:48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:24px;display:grid;gap:16px;border-bottom:4px solid var(--mentor-green)}
+.display-xl{font:800 clamp(36px,6vw,56px)/1 var(--sans);text-transform:uppercase;letter-spacing:-.01em}
+.display-xl em{font-style:normal;color:var(--mentor-green)}
+.hero p{max-width:60ch;color:#D5DFE0}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1px solid var(--line)}
+.toc a{display:grid;grid-template-columns:44px 1fr;gap:4px 12px;padding:16px 24px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);color:var(--ink);text-decoration:none}
+.toc a:hover{background:var(--surface-tint)}
+.toc a:focus-visible{outline:2px solid var(--green-text);outline-offset:-4px}
+.toc .n{grid-row:span 2;font:700 28px/32px var(--slab);color:var(--green-text)}
+.toc .t{font-weight:700}
+.toc .d{font-size:13px;line-height:18px;color:var(--ink-muted)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px;line-height:20px}
+th{background:var(--night);color:var(--on-night);font:700 12px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase;text-align:left;padding:10px 12px;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--surface-raised)}
+td.id{font:700 13px/20px var(--slab);color:var(--green-text);white-space:nowrap}
+.hl td{background:var(--surface-tint)!important}
+
+/* process map */
+.map{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+.map svg{display:block;width:1340px;max-width:none;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:22px;height:14px;border:1.5px solid var(--forest-line);border-radius:2px;background:var(--surface)}
+.sw.arrow{border:none;height:2px;background:var(--green-text)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.stat{background:var(--forest);color:var(--on-night);border-radius:8px;padding:20px;display:grid;gap:8px;align-content:start}
+.stat b{font:700 44px/44px var(--slab);color:var(--mentor-green)}
+.stat span{font-size:14px;line-height:20px}
+
+/* slides */
+.slides{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.slide{aspect-ratio:16/9;max-width:100%;border:1px solid var(--line);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.slide.dark{background:var(--night);color:var(--on-night)}
+.slide.light{background:var(--surface)}
+.slide .top{height:6px;background:var(--mentor-green);flex:none}
+.slide .in{padding:6% 7%;display:flex;flex-direction:column;gap:3%;flex:1;min-height:0}
+.slide .k{font:700 clamp(9px,1.2vw,12px)/1.2 var(--slab);letter-spacing:.08em;text-transform:uppercase;color:var(--mentor-green)}
+.slide.light .k{color:var(--green-text)}
+.slide h3{font:800 clamp(18px,3vw,30px)/1.02 var(--sans);text-transform:uppercase}
+.slide .foot{margin-top:auto;font:700 clamp(8px,1vw,11px)/1.2 var(--slab);letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.slide .row{display:grid;grid-template-columns:repeat(3,1fr);gap:4%;margin-top:auto}
+.slide .row div{border-top:3px solid var(--forest-line);padding-top:6px;font-size:clamp(9px,1.15vw,12px);line-height:1.3}
+.slide .row b{display:block;font:700 clamp(18px,3vw,32px)/1 var(--slab);color:var(--green-text)}
+
+/* roadmap */
+.rm{overflow-x:auto;border:1px solid var(--line)}
+.rm-grid{display:grid;grid-template-columns:260px repeat(12,minmax(48px,1fr));min-width:900px}
+.rm-grid > div{border-top:1px solid var(--line);padding:8px 10px;min-width:0}
+.rm-h{background:var(--night);color:var(--on-night);font:700 12px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase;border-top:none!important;text-align:center}
+.rm-h:first-child{text-align:left}
+.rm-phase{grid-column:1/-1;background:var(--surface-raised);font:700 13px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase;color:var(--green-text)}
+.rm-task{font-size:14px;line-height:19px;display:grid;gap:4px}
+.bar{align-self:center;height:22px;border-radius:2px;padding:0!important;border-top:none!important;margin-block:8px}
+.bar.p{background:var(--mentor-green)}
+.bar.i{background:var(--forest)}
+.bar.s{background:transparent;border:2px solid var(--forest-line)!important}
+.ms{align-self:center;justify-self:center;width:14px;height:14px;background:var(--night);transform:rotate(45deg);outline:2px solid var(--mentor-green);padding:0!important;border-top:none!important}
+
+/* status */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.two > div{min-width:0;display:grid;gap:12px;align-content:start}
+ul.clean{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+ul.clean li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+ul.clean li::before{content:"";width:10px;height:10px;margin-top:7px;background:var(--mentor-green);border:1.5px solid var(--forest-line)}
+ul.clean.next li::before{background:transparent}
+.rag{display:flex;flex-wrap:wrap;gap:12px}
+.rag div{flex:1 1 160px;border:1px solid var(--line);padding:12px 16px;display:grid;gap:4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:1px}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.notes > div{border-top:3px solid var(--forest-line);padding-top:12px;display:grid;gap:8px;align-content:start}
+.notes ol{margin:0;padding-left:20px;display:grid;gap:6px}
+
+@media (max-width:560px){.display-l{font-size:28px;line-height:30px}.body{padding:16px}.band{padding:12px 16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <div class="review">
+    <span class="label" style="color:var(--green-text)">Portfolio sample</span>
+    <p class="small">A reusable seven-deliverable package for a Digital Operations Assessment (D1–D7), shown here for a fictional nonprofit coaching network. All organization names, systems, volumes and findings are <b>sample content</b> written to show the layout and structure. The same package is re-branded for each new client.</p>
+  </div>
+
+  <!-- COVER -->
+  <section class="sheet cover" id="cover">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">Draft as of <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="hero">
+      <span class="label" style="color:var(--mentor-green)">Digital Operations Assessment · Deliverable packet</span>
+      <h1 class="display-xl">How a match <em>gets made</em> today</h1>
+      <p>How work moves from a volunteer's first inquiry and a participant's enrollment through matching, match support and the funding that pays for it. Seven deliverables, one look.</p>
+    </div>
+    <nav class="toc" aria-label="Deliverables in this packet">
+      <a href="#d1"><span class="n">D1</span><span class="t">Process Maps</span><span class="d">Swimlane maps by role · PDF</span></a>
+      <a href="#d2"><span class="n">D2</span><span class="t">Technical Assessment Log</span><span class="d">Systems, data flows, manual touchpoints · Excel</span></a>
+      <a href="#d3"><span class="n">D3</span><span class="t">Requirements Workbook</span><span class="d">Prioritized needs by functional area · Excel</span></a>
+      <a href="#d4"><span class="n">D4</span><span class="t">12 Month Roadmap</span><span class="d">Phased plan with budget guidance · PDF</span></a>
+      <a href="#d5"><span class="n">D5</span><span class="t">Stakeholder Readiness</span><span class="d">Change capacity and champions · Excel</span></a>
+      <a href="#d6"><span class="n">D6</span><span class="t">Executive Summary</span><span class="d">Leadership readout deck · PDF</span></a>
+      <a href="#d7"><span class="n">D7</span><span class="t">Weekly Status Update</span><span class="d">Progress, RFIs, risks · PDF</span></a>
+      
+    </nav>
+  </section>
+
+  <!-- D1 -->
+  <section class="sheet" id="d1">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">D1 · v0.1 · <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D1 · Process Maps · Map 1 of 12</span>
+        <h2 class="display-l">Volunteer inquiry to match</h2>
+        <p class="lede">From the moment a prospective volunteer coach fills out the website form to the first match support check-in. Duplicate entry, wait states and hand-kept trackers are flagged on the map.</p>
+        <div class="meta"><span class="sample">Sample content</span><span class="chip">Owner: Enrollment and Matching</span><span class="chip">Validated with: pending</span></div>
+      </div>
+
+      <div class="map" role="img" aria-label="Swimlane process map with four lanes: Prospective coach, Enrollment and Matching, Program Participant, and Match Support. Nine steps from website inquiry to the first monthly check-in, with four flagged pain points.">
+        <svg viewBox="0 0 1340 440" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" style="fill:var(--green-text)"/>
+            </marker>
+          </defs>
+          <!-- lanes -->
+          <g style="fill:var(--surface)">
+            <rect x="0" y="0" width="1340" height="440"/>
+          </g>
+          <g style="fill:var(--surface-raised)"><rect x="0" y="0" width="140" height="440"/></g>
+          <g style="stroke:var(--line);stroke-width:1">
+            <line x1="0" y1="110" x2="1340" y2="110"/><line x1="0" y1="220" x2="1340" y2="220"/><line x1="0" y1="330" x2="1340" y2="330"/>
+            <line x1="140" y1="0" x2="140" y2="440"/>
+          </g>
+          <g style="fill:var(--ink);font:700 12px var(--slab);letter-spacing:.06em">
+            <text x="14" y="50">PROSPECTIVE</text><text x="14" y="66">COACH</text>
+            <text x="14" y="160">ENROLLMENT</text><text x="14" y="176">AND MATCHING</text>
+            <text x="14" y="270">PROGRAM</text><text x="14" y="286">PARTICIPANT</text>
+            <text x="14" y="380">MATCH</text><text x="14" y="396">SUPPORT</text>
+          </g>
+
+          <!-- arrows -->
+          <g style="fill:none;stroke:var(--green-text);stroke-width:1.75" marker-end="url(#ah)">
+            <path d="M271 55 H345 V135" />
+            <path d="M401 165 H475 V85" />
+            <path d="M531 55 H605 V135" />
+            <path d="M661 165 H677" />
+            <path d="M791 165 H823" />
+            <path d="M905 165 H937" />
+            <path d="M865 131 V71" />
+            <path d="M1051 165 H1125 V245" />
+            <path d="M1181 275 H1255 V355" />
+          </g>
+          <g style="fill:var(--ink-muted);font:700 11px var(--slab)">
+            <text x="910" y="157">YES</text><text x="872" y="104">NO</text>
+          </g>
+
+          <!-- tasks -->
+          <g style="fill:var(--surface);stroke:var(--forest-line);stroke-width:1.5">
+            <rect x="159" y="27" width="112" height="56" rx="2"/>
+            <rect x="289" y="137" width="112" height="56" rx="2"/>
+            <rect x="419" y="27" width="112" height="56" rx="2"/>
+            <rect x="549" y="137" width="112" height="56" rx="2"/>
+            <rect x="679" y="137" width="112" height="56" rx="2"/>
+            <rect x="939" y="137" width="112" height="56" rx="2"/>
+            <rect x="1069" y="247" width="112" height="56" rx="2"/>
+            <rect x="1199" y="357" width="112" height="56" rx="2"/>
+          </g>
+          <!-- decision + end -->
+          <path d="M865 131 L905 165 L865 199 L825 165 Z" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/>
+          <circle cx="865" cy="55" r="14" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>
+          <text x="886" y="44" style="fill:var(--ink-muted);font:400 11px var(--sans)">Notified,</text>
+          <text x="886" y="58" style="fill:var(--ink-muted);font:400 11px var(--sans)">file closed</text>
+
+          <g style="font:400 12px/1.25 var(--sans)">
+            <foreignObject x="163" y="29" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Submits inquiry on website form</div></foreignObject>
+            <foreignObject x="293" y="139" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Re-keys inquiry into case management</div></foreignObject>
+            <foreignObject x="423" y="29" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Attends info session, applies</div></foreignObject>
+            <foreignObject x="553" y="139" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Requests references and background check</div></foreignObject>
+            <foreignObject x="683" y="139" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Interview and safety assessment</div></foreignObject>
+            <foreignObject x="829" y="151" width="72" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:700 11px/14px var(--sans);height:28px;display:flex;align-items:center;justify-content:center;text-align:center">Approved?</div></foreignObject>
+            <foreignObject x="943" y="139" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Proposes match from participant waitlist</div></foreignObject>
+            <foreignObject x="1073" y="249" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Reviews and approves the match</div></foreignObject>
+            <foreignObject x="1203" y="359" width="104" height="52"><div xmlns="http://www.w3.org/1999/xhtml" style="color:var(--ink);font:400 12px/15px var(--sans);height:52px;display:flex;align-items:center;justify-content:center;text-align:center">Match meeting, then monthly check-ins</div></foreignObject>
+          </g>
+
+          <!-- pain chips -->
+          <g style="fill:var(--surface);stroke-width:1.5">
+            <rect x="291" y="199" width="108" height="18" rx="4" style="stroke:var(--warning)"/>
+            <rect x="551" y="199" width="108" height="18" rx="4" style="stroke:var(--warning)"/>
+            <rect x="941" y="199" width="108" height="18" rx="4" style="stroke:var(--warning)"/>
+            <rect x="1201" y="417" width="108" height="18" rx="4" style="stroke:var(--critical)"/>
+          </g>
+          <g style="font:700 10px var(--slab);letter-spacing:.05em" text-anchor="middle">
+            <text x="345" y="212" style="fill:var(--warning)">DUPLICATE ENTRY</text>
+            <text x="605" y="212" style="fill:var(--warning)">WAIT 2–4 WEEKS</text>
+            <text x="995" y="212" style="fill:var(--warning)">WAITLIST IN EXCEL</text>
+            <text x="1255" y="430" style="fill:var(--critical)">CHECK-INS MISSED</text>
+          </g>
+        </svg>
+      </div>
+      <div class="legend small muted">
+        <span><i class="sw"></i>Task</span>
+        <span><i class="sw arrow"></i>Hand-off</span>
+        <span><span class="chip w">Gap</span>Pain point or wait state</span>
+        <span><span class="chip c">Blocker</span>Compliance or match-safety risk</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- D2 -->
+  <section class="sheet" id="d2">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">D2 · v0.1 · <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D2 · Technical Assessment Log · Systems tab</span>
+        <h2 class="display-l">What runs the agency</h2>
+        <p class="lede">Every system and spreadsheet that holds part of a coach, participant, match or donor record, and where staff move data between them by hand. In the Excel version this is the first of five tabs.</p>
+        <div class="meta"><span class="sample">Sample content</span><span class="chip">Systems logged: 8</span><span class="chip w">Manual touchpoints: 6</span></div>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>ID</th><th>System</th><th>What it holds</th><th>Primary users</th><th>Connects to</th><th>Manual touchpoint</th></tr></thead>
+          <tbody>
+            <tr><td class="id">SYS-01</td><td><b>Case management system</b></td><td>Coaches, participants, matches, match support notes</td><td>Enrollment, Match Support</td><td>None confirmed</td><td><span class="chip w">Re-keyed from web form</span></td></tr>
+            <tr><td class="id">SYS-02</td><td><b>Website inquiry form</b></td><td>Volunteer and participant inquiries</td><td>Prospective coaches, participants</td><td>Email notification only</td><td><span class="chip w">Copied to the case management system</span></td></tr>
+            <tr class="hl"><td class="id">SYS-03</td><td><b>Participant waitlist workbook</b></td><td>Participants waiting for a match, priority notes</td><td>Enrollment lead (1 person)</td><td>None</td><td><span class="chip c">Single owner</span></td></tr>
+            <tr><td class="id">SYS-04</td><td><b>Background check vendor</b></td><td>Screening status and results</td><td>Enrollment</td><td>Vendor portal</td><td><span class="chip w">Status checked daily</span></td></tr>
+            <tr><td class="id">SYS-05</td><td><b>Donor database</b></td><td>Gifts, pledges, sponsors</td><td>Development</td><td>Finance (CSV export)</td><td><span class="chip w">Monthly reconciliation</span></td></tr>
+            <tr><td class="id">SYS-06</td><td><b>Event registration</b></td><td>Annual fundraising event teams and pledges</td><td>Development, Events</td><td>None</td><td><span class="chip w">Gifts re-entered</span></td></tr>
+            <tr><td class="id">SYS-07</td><td><b>Accounting system</b></td><td>GL, grants, restricted funds</td><td>Finance</td><td>Payroll</td><td><span class="chip">None logged</span></td></tr>
+            <tr><td class="id">SYS-08</td><td><b>Microsoft 365</b></td><td>Email, shared files, Teams</td><td>All staff</td><td>N/A</td><td><span class="chip">None logged</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- D3 -->
+  <section class="sheet" id="d3">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">D3 · v0.1 · <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D3 · Software and Integration Requirements · Excerpt</span>
+        <h2 class="display-l">What the systems need to do</h2>
+        <p class="lede">Requirements grouped by functional area, each tied to a pain point and the map it came from. Priority uses Must, Should and Could.</p>
+        <div class="meta"><span class="sample">Sample content</span><span class="chip g">Must: 2</span><span class="chip f">Should: 2</span><span class="chip">Could: 1</span></div>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Req</th><th>Functional area</th><th>Requirement</th><th>Why it matters</th><th>Source</th><th>Priority</th><th>Type</th></tr></thead>
+          <tbody>
+            <tr><td class="id">REQ-ENR-01</td><td>Volunteer enrollment</td><td>Website inquiries create a case management record without re-typing.</td><td>Removes the first re-key and speeds first contact.</td><td>D1 Map 1, step 2</td><td><span class="chip g">Must</span></td><td>Integration</td></tr>
+            <tr><td class="id">REQ-ENR-02</td><td>Volunteer enrollment</td><td>Background check status is visible on the volunteer record.</td><td>Staff stop checking the vendor portal by hand.</td><td>D1 Map 1, step 4</td><td><span class="chip f">Should</span></td><td>Integration</td></tr>
+            <tr><td class="id">REQ-MAT-01</td><td>Matching</td><td>The participant waitlist lives in the case management system with priority and wait time.</td><td>Removes a single-owner spreadsheet that holds participant data.</td><td>D2 SYS-03</td><td><span class="chip g">Must</span></td><td>Process</td></tr>
+            <tr><td class="id">REQ-MS-01</td><td>Match support</td><td>Overdue check-ins alert the assigned specialist and their lead.</td><td>Missed contacts are a match-safety risk.</td><td>D1 Map 1, step 9</td><td><span class="chip f">Should</span></td><td>Configuration</td></tr>
+            <tr><td class="id">REQ-DEV-01</td><td>Development</td><td>Event pledges post to the donor database without re-entry.</td><td>Cuts post-event cleanup and reconciliation.</td><td>D2 SYS-06</td><td><span class="chip">Could</span></td><td>New software</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- D4 -->
+  <section class="sheet" id="d4">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">D4 · v0.1 · <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D4 · 12 Month Digital Operations Roadmap</span>
+        <h2 class="display-l">What to change, in what order</h2>
+        <p class="lede">Process-only changes come first because they need no budget approval. Integration and software decisions follow once the requirements are confirmed.</p>
+        <div class="meta"><span class="sample">Sample content</span><span class="chip g">Process only</span><span class="chip" style="background:var(--forest);color:var(--on-night);border-color:var(--forest)">Integration</span><span class="chip f">Software decision</span></div>
+      </div>
+      <div class="rm" role="table" aria-label="Twelve month roadmap">
+        <div class="rm-grid">
+          <div class="rm-h">Initiative</div>
+          <div class="rm-h">M1</div><div class="rm-h">M2</div><div class="rm-h">M3</div><div class="rm-h">M4</div><div class="rm-h">M5</div><div class="rm-h">M6</div><div class="rm-h">M7</div><div class="rm-h">M8</div><div class="rm-h">M9</div><div class="rm-h">M10</div><div class="rm-h">M11</div><div class="rm-h">M12</div>
+
+          <div class="rm-phase">Phase 1 · Quick wins</div>
+          <div class="rm-task">Move the participant waitlist into case management<span class="small muted">REQ-MAT-01 · Budget: staff time</span></div>
+          <div class="bar p" style="grid-column:2/4"></div>
+          <div class="rm-task" style="grid-column:1">Standard check-in calendar and overdue view<span class="small muted">REQ-MS-01 · Budget: staff time</span></div>
+          <div class="bar p" style="grid-column:2/5"></div>
+
+          <div class="rm-phase">Phase 2 · Connect what they own</div>
+          <div class="rm-task" style="grid-column:1">Web inquiry to case management intake<span class="small muted">REQ-ENR-01 · Budget: $4k–$8k</span></div>
+          <div class="bar i" style="grid-column:4/7"></div>
+          <div class="rm-task" style="grid-column:1">Background check status sync<span class="small muted">REQ-ENR-02 · Budget: $3k–$6k</span></div>
+          <div class="bar i" style="grid-column:6/9"></div>
+
+          <div class="rm-phase">Phase 3 · Decide and optimize</div>
+          <div class="rm-task" style="grid-column:1">Event and pledge platform decision<span class="small muted">REQ-DEV-01 · Budget: TBD after selection</span></div>
+          <div class="bar s" style="grid-column:8/11"></div>
+          <div class="rm-task" style="grid-column:1">Leadership KPI view (time to match, match length)<span class="small muted">Board reporting</span></div>
+          <div class="bar i" style="grid-column:10/14"></div>
+          <div class="rm-task" style="grid-column:1">Board review checkpoint</div>
+          <div class="ms" style="grid-column:7"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D5 -->
+  <section class="sheet" id="d5">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">D5 · v0.1 · <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D5 · Stakeholder Readiness Summary and Log</span>
+        <h2 class="display-l">Who carries the change</h2>
+        <p class="lede">Roles, not names, in this sample. The live log records each interviewee's training needs, change capacity, champion potential and any work only they know how to do.</p>
+        <div class="meta"><span class="sample">Sample content</span><span class="chip g">Champions: 2</span><span class="chip c">Key-person risks: 2</span></div>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Role</th><th>Team</th><th>Change capacity</th><th>Training need</th><th>Champion</th><th>Key-person risk</th></tr></thead>
+          <tbody>
+            <tr><td><b>Enrollment Lead</b></td><td>Enrollment and Matching</td><td><span class="chip w">Stretched</span></td><td>Case management waitlist features</td><td>Yes</td><td><span class="chip c">Owns waitlist</span></td></tr>
+            <tr><td><b>Match Support Specialist</b></td><td>Match Support</td><td><span class="chip f">Ready</span></td><td>Overdue check-in view</td><td>Yes</td><td>None</td></tr>
+            <tr><td><b>Development Manager</b></td><td>Development and Events</td><td><span class="chip f">Ready</span></td><td>Donor and event data flow</td><td>Possible</td><td>None</td></tr>
+            <tr class="hl"><td><b>Finance Manager</b></td><td>Finance</td><td><span class="chip w">Cautious</span></td><td>New reconciliation steps</td><td>No</td><td><span class="chip c">Month-end reconciliation</span></td></tr>
+            <tr><td><b>Executive Director</b></td><td>Leadership</td><td><span class="chip f">Ready</span></td><td>KPI definitions</td><td>Sponsor</td><td>None</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- D6 -->
+  <section class="sheet" id="d6">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">D6 · v0.1 · <i>Oct 30, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D6 · Executive Summary Presentation · 3 of ~14 slides</span>
+        <h2 class="display-l">The readout</h2>
+        <p class="lede">Dark title slides, bold uppercase headlines and one highlighted figure per slide.</p>
+        <div class="meta"><span class="sample">Sample figures</span></div>
+      </div>
+      <div class="slides">
+        <div class="slide dark">
+          <div class="top"></div>
+          <div class="in">
+            <span class="k">Digital Operations Assessment</span>
+            <h3>More matches, <span style="color:var(--mentor-green)">less re-typing</span></h3>
+            <p style="font-size:clamp(10px,1.3vw,13px);line-height:1.35;color:#D5DFE0;max-width:44ch">How work moves today, what the manual steps cost, and a twelve month plan to connect the systems the agency already owns.</p>
+            <span class="foot">Prepared for the Executive Director · Dec 2026</span>
+          </div>
+        </div>
+        <div class="slide dark">
+          <div class="top"></div>
+          <div class="in">
+            <span class="k">What we found</span>
+            <h3>A coach waits <span style="color:var(--mentor-green)">41 days</span> to be match-ready</h3>
+            <div class="row" style="grid-template-columns:repeat(3,1fr)">
+              <div style="border-color:var(--mentor-green);color:#D5DFE0"><b style="color:var(--mentor-green)">3</b>systems hold the same volunteer record</div>
+              <div style="border-color:var(--mentor-green);color:#D5DFE0"><b style="color:var(--mentor-green)">1</b>person keeps the participant waitlist</div>
+              <div style="border-color:var(--mentor-green);color:#D5DFE0"><b style="color:var(--mentor-green)">6 hrs</b>a week spent re-keying data</div>
+            </div>
+          </div>
+        </div>
+        <div class="slide light">
+          <div class="top"></div>
+          <div class="in">
+            <span class="k">Recommendation</span>
+            <h3>Fix the waitlist first</h3>
+            <div class="row">
+              <div><b>M1–M3</b>Waitlist into case management. No new spend.</div>
+              <div><b>M4–M8</b>Connect web inquiries and screening.</div>
+              <div><b>M8–M12</b>Event platform decision and KPI view.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b class="num">41</b><span>Median days from inquiry to match-ready (sample)</span></div>
+        <div class="stat"><b class="num">6 hrs</b><span>Weekly staff time spent re-keying inquiries and pledges (sample)</span></div>
+        <div class="stat"><b class="num">2</b><span>Roles that are single points of failure (sample)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D7 -->
+  <section class="sheet" id="d7">
+    <div class="band">
+      <span class="who">Sample client: <b>Community Coaching Network</b></span>
+      <span class="stamp">Week 2 · <i>Nov 13, 2026</i></span>
+    </div>
+    <div class="body">
+      <div class="head">
+        <span class="did">D7 · Project Management Status Update</span>
+        <h2 class="display-l">Week 2 status</h2>
+        <div class="meta"><span class="sample">Sample content</span></div>
+      </div>
+      <div class="rag">
+        <div><span class="label muted">Schedule</span><span><i class="dot" style="background:var(--green-text)"></i>On track</span></div>
+        <div><span class="label muted">Scope</span><span><i class="dot" style="background:var(--green-text)"></i>On track</span></div>
+        <div><span class="label muted">Information requests</span><span><i class="dot" style="background:var(--warning)"></i>2 overdue</span></div>
+        <div><span class="label muted">Interviews</span><span class="num">9 of 14 complete</span></div>
+      </div>
+      <div class="two">
+        <div>
+          <span class="label">Completed this week</span>
+          <ul class="clean">
+            <li>Enrollment and Match Support interviews (6)</li>
+            <li>Draft of Map 1, volunteer inquiry to match</li>
+            <li>Systems inventory started in the assessment log</li>
+          </ul>
+        </div>
+        <div>
+          <span class="label">Next week</span>
+          <ul class="clean next">
+            <li>Development and Finance interviews (5)</li>
+            <li>Map 1 validation session with Enrollment</li>
+            <li>Survey results summary</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>RFI</th><th>Request</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="id">RFI-03</td><td>Case management read-only access or screen share</td><td>Program Director</td><td class="num">Nov 6</td><td><span class="chip w">Overdue</span></td></tr>
+            <tr><td class="id">RFI-05</td><td>Donor database export (12 months)</td><td>Development Manager</td><td class="num">Nov 10</td><td><span class="chip w">Overdue</span></td></tr>
+            <tr><td class="id">RFI-06</td><td>Org chart and staff roster</td><td>Executive Director</td><td class="num">Nov 17</td><td><span class="chip f">Open</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="pf-back" style="max-width:1100px;margin:0 auto;padding:16px;font:600 14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif"><a href="index.html" style="color:#5f7f86;text-decoration:none">← Back to portfolio</a></nav>
+</body></html>

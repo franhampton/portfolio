@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integration Review Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{--bg:#f7f8f7;--surface:#ffffff;--ink:#2b3233;--muted:#667072;--line:#dde3e1;--accent:#5f7f86;--accent-soft:#e6eeee;
+  --good:#2f6b3f;--good-soft:#e4f1e7;--bad:#97353a;--bad-soft:#f7e3e3;--warn:#8a5420;--warn-soft:#f8e9dc;
+  --display:"Spectral",Georgia,serif;--body:"Public Sans",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c2122;--surface:#232a2b;--ink:#e3e8e7;--muted:#9aa5a6;--line:#344041;--accent:#8fb0b6;--accent-soft:#2b3637;
+  --good:#9fd3ad;--good-soft:#25392c;--bad:#eeaaae;--bad-soft:#3e2627;--warn:#e9bf8f;--warn-soft:#3b2f22;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:860px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)} h2{font-size:1.4rem} h3{font-size:1.08rem}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header,section{display:flex;flex-direction:column;gap:14px}
+ul.points,ol.points{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:7px}
+.points li{max-width:68ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{padding:14px 16px;border-top:2px solid var(--accent);background:var(--surface)}
+.stat b{display:block;font-family:var(--display);font-size:1.7rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:.9rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.tag{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:600px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.84rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:4px;padding:14px 18px}
+.callout p{max-width:none}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.p-good{background:var(--good-soft);color:var(--good)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-warn{background:var(--warn-soft);color:var(--warn)}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.compare ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.compare li{position:relative;padding-left:24px}
+.good li::before{content:"\2713";position:absolute;left:0;color:var(--good);font-weight:700}
+.bad li::before{content:"\2715";position:absolute;left:0;color:var(--bad);font-weight:700}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.tl{background:var(--surface);border-top:2px solid var(--accent);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tl .yr{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.tl b{font-weight:600}
+.tl span{font-size:.9rem;color:var(--muted)}
+.waves{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.wave{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.wave .when{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.wave ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:.93rem}
+.qa{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa b{font-weight:600}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Integration review · sample</p>
+    <h1>Should a script auto-create CRM leads from email?</h1>
+    <p class="lede">A client asked to turn back on a script that reads project managers' Gmail and automatically creates leads in their CRM, which the existing integration then pushes into their field-service system. I reviewed the script's code and the live integration against what the client actually needed, and recommended a built-in feature instead.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Reviewed the script and the live integration against the client's request and wrote the recommendation, as one of 93 automations I've checked against existing client code and APIs.</p></div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><b>2</b><span>systems a wrong guess had to be cleaned up in</span></div>
+    <div class="stat"><b>38</b><span>auto-created leads in one month that were vendors, junk or tests</span></div>
+    <div class="stat"><b>7</b><span>issues found comparing the code to the ask</span></div>
+    <div class="stat"><b>0</b><span>custom code to maintain with the recommendation</span></div>
+  </div>
+
+  <section aria-labelledby="ask">
+    <h2 id="ask">The ask vs. what the code did</h2>
+    <p>The goal was simple: every new customer email should end up as a correct lead in Close, with nothing slipping through. Reading the script and the integration showed where the current approach fell short of that.</p>
+    <div class="compare">
+      <div class="card"><h3>What the client needed</h3><ul class="good">
+        <li>New customers captured from email</li><li>Existing customers matched to their record, not duplicated</li><li>Required fields filled in for reporting</li><li>Vendors and spam kept out of the CRM and field-service system</li><li>Nothing silently missed</li></ul></div>
+      <div class="card"><h3>What the script actually did</h3><ul class="bad">
+        <li>Created the lead before anyone checked who the sender was</li><li>Pushed every lead straight into SmartGlazier through the webhook</li><li>Left Source of Lead, Record Type and Customer Type blank</li><li>Read the thread's last sender, so a PM's own reply could become a lead</li><li>Labeled threads processed even when the API call failed</li></ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rec">
+    <h2 id="rec">Recommendation</h2>
+    <div class="callout"><p><b>Instead of re-activating the Gmail script, have PMs add new senders from Close's built-in Potential Contacts tab.</b> The PM decides "new customer, existing customer or not a customer" with one click, before anything is created. No custom code to maintain, and it uses the current Close setup.</p></div>
+    <h3>Recommended workflow</h3>
+    <ol class="points">
+      <li>A customer emails the PM's Gmail. <i>(No change.)</i></li>
+      <li>Close lists the sender under <b>Potential Contacts</b>, already filtering out spam, automated and internal email.</li>
+      <li>Once a day, the PM works through the Potential Contacts tab.</li>
+      <li>For each sender: attach an <b>existing customer</b> to their lead, create a <b>new lead</b> with the required fields, or <b>discard</b> a vendor or irrelevant sender.</li>
+      <li>Close attaches the email, and the sender's earlier emails, to the lead automatically.</li>
+      <li>The existing webhook creates the SmartGlazier customer, now from a lead the PM has checked. <i>(No change to the integration.)</i></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="cmp">
+    <h2 id="cmp">Why it's the better approach</h2>
+    <p>Both approaches still need one PM decision per new sender. The script just made that decision after a lead and a SmartGlazier customer already existed, so a wrong guess had to be cleaned up in two systems.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Issue</th><th>With the script</th><th>With Potential Contacts</th></tr></thead>
+      <tbody>
+        <tr><td>Field-service records</td><td>Every auto-created lead becomes a SmartGlazier customer, including vendors. In one month, 38 such leads turned out to be vendors, junk or tests.</td><td>A SmartGlazier customer is created only after the PM confirms a real customer.</td></tr>
+        <tr><td>Data quality</td><td>Leads arrive with key reporting fields blank, and the lead name can be just the start of an email address.</td><td>The PM fills in the fields when creating the lead.</td></tr>
+        <tr><td>Existing customers on a new address</td><td>Creates a duplicate lead. Fixing it means a manual merge that can't be undone.</td><td>The PM attaches the sender to the existing lead. No duplicate.</td></tr>
+        <tr><td>Tasks</td><td>Creates a "Verify and assign" task, breaking the agreed rule that tasks are for follow-ups only.</td><td>No task. The review happens in an Inbox tab the PM already works.</td></tr>
+        <tr><td>Internal and automated email</td><td>Reads the last sender in the thread, so a PM's own address can become a lead.</td><td>Close filters internal, automated and spam email.</td></tr>
+        <tr><td>Silent failures</td><td>Threads are labeled processed even if the CRM call fails, so those senders are never retried.</td><td>Nothing to fail. The sender stays listed until the PM acts.</td></tr>
+        <tr><td>Upkeep</td><td>A script and Gmail workflow in every PM's account, each holding the API key, plus a user list to maintain.</td><td>Built into Close. Nothing to maintain.</td></tr>
+      </tbody>
+    </table></div>
+    <p><b>Trade-offs, stated plainly:</b> Potential Contacts is a manual click, each PM sees only their own list, and entries expire after 30 days. A daily check of the tab handles all three.</p>
+  </section>
+
+  <section aria-labelledby="fallback">
+    <h2 id="fallback">If the team keeps the script</h2>
+    <p>If Potential Contacts doesn't work for the PMs, the script is a reasonable fallback once these code changes are made:</p>
+    <ol class="points">
+      <li>Skip senders on the company's own domain, and read the first outside sender in the thread instead of the last message.</li>
+      <li>Leave automatic domain matching out.</li>
+      <li>Set Source of Lead and Record Type at creation, and replace the "Verify and assign" task with a Smart View.</li>
+      <li>Apply the processed label only after Close confirms the lead was created, so failures are retried.</li>
+      <li>Store the API key in Script Properties instead of in the code.</li>
+    </ol>
+  </section>
+  <p class="note">Client name, people and email domains are replaced with generic labels. Software names are unchanged.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notion Workspace Sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#f7f8f7; --surface:#ffffff; --ink:#2b3233; --muted:#667072; --line:#dde3e1; --hover:#f1f4f3;
+  --accent:#5f7f86; --accent-soft:#e6eeee;
+  --t-gray:#ebeceb; --t-gray-i:#4f5554; --t-blue:#e3edf6; --t-blue-i:#2c5a88; --t-green:#e4f1e7; --t-green-i:#2f6b3f;
+  --t-yellow:#f8f0d8; --t-yellow-i:#7a5d10; --t-red:#f7e3e3; --t-red-i:#97353a; --t-purple:#ece6f5; --t-purple-i:#5b3f8a;
+  --t-orange:#f8e9dc; --t-orange-i:#8a5420; --t-brown:#efe7df; --t-brown-i:#6b4f37;
+  --display:"Spectral", Georgia, serif; --body:"Public Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1c2122; --surface:#232a2b; --ink:#e3e8e7; --muted:#9aa5a6; --line:#344041; --hover:#2a3233;
+  --accent:#8fb0b6; --accent-soft:#2b3637;
+  --t-gray:#323a3b; --t-gray-i:#c7cfce; --t-blue:#243444; --t-blue-i:#a9c8ea; --t-green:#25392c; --t-green-i:#9fd3ad;
+  --t-yellow:#3a3420; --t-yellow-i:#e8d08e; --t-red:#3e2627; --t-red-i:#eeaaae; --t-purple:#332a42; --t-purple-i:#c9b5ea;
+  --t-orange:#3b2f22; --t-orange-i:#e9bf8f; --t-brown:#382f27; --t-brown-i:#dcc3aa; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c2122; --surface:#232a2b; --ink:#e3e8e7; --muted:#9aa5a6; --line:#344041; --hover:#2a3233;
+  --accent:#8fb0b6; --accent-soft:#2b3637;
+  --t-gray:#323a3b; --t-gray-i:#c7cfce; --t-blue:#243444; --t-blue-i:#a9c8ea; --t-green:#25392c; --t-green-i:#9fd3ad;
+  --t-yellow:#3a3420; --t-yellow-i:#e8d08e; --t-red:#3e2627; --t-red-i:#eeaaae; --t-purple:#332a42; --t-purple-i:#c9b5ea;
+  --t-orange:#3b2f22; --t-orange-i:#e9bf8f; --t-brown:#382f27; --t-brown-i:#dcc3aa; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:0 16px}
+.wrap{max-width:980px;margin:0 auto;padding:48px 0 72px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:600;margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.5vw,2.5rem)}
+h2{font-size:1.35rem}
+p{margin:0;max-width:68ch}
+a{color:var(--accent)}
+.back{font-size:.9rem;font-weight:600;text-decoration:none}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lede{color:var(--muted);font-size:1.05rem}
+header,section{display:flex;flex-direction:column;gap:14px}
+.points{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.points li{max-width:68ch}
+.note{font-size:.85rem;color:var(--muted);font-style:italic}
+
+/* Notion-style frame */
+.frame{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.chrome{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+.chrome .sep{opacity:.5}
+.page{padding:26px 26px 28px;display:flex;flex-direction:column;gap:14px}
+.page h3{font-family:var(--body);font-size:1.6rem;font-weight:700;margin:0;line-height:1.25}
+.page .desc{color:var(--muted);font-size:.93rem}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{border:0;background:none;color:var(--muted);font:inherit;font-size:.88rem;padding:7px 12px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:720px}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:.8rem;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr{cursor:pointer}
+tbody tr:hover,tbody tr:focus{background:var(--hover);outline:none}
+td.title{font-weight:600;min-width:260px}
+.tag{display:inline-block;font-size:.76rem;padding:1px 8px;border-radius:4px;white-space:nowrap;line-height:1.6}
+.gray{background:var(--t-gray);color:var(--t-gray-i)} .blue{background:var(--t-blue);color:var(--t-blue-i)}
+.green{background:var(--t-green);color:var(--t-green-i)} .yellow{background:var(--t-yellow);color:var(--t-yellow-i)}
+.red{background:var(--t-red);color:var(--t-red-i)} .purple{background:var(--t-purple);color:var(--t-purple-i)}
+.orange{background:var(--t-orange);color:var(--t-orange-i)} .brown{background:var(--t-brown);color:var(--t-brown-i)}
+.status::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.board{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:12px;overflow-x:auto;padding-bottom:4px}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.col h4{margin:0;font-size:.82rem;font-weight:600;display:flex;gap:6px;align-items:center}
+.col h4 span.n{color:var(--muted);font-weight:400}
+.bcard{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;cursor:pointer;font-size:.86rem}
+.bcard:hover{background:var(--hover)}
+.bcard b{font-weight:600}
+.bcard .row{display:flex;flex-wrap:wrap;gap:4px}
+.count{font-size:.8rem;color:var(--muted)}
+
+/* side peek */
+.peek{position:fixed;inset:0;display:none;z-index:10}
+.peek.open{display:block}
+.peek .shade{position:absolute;inset:0;background:rgba(20,24,25,.35)}
+.peek .panel{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--surface);border-left:1px solid var(--line);padding:22px 24px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.peek .close{align-self:flex-start;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;font:inherit;font-size:.85rem;cursor:pointer}
+.peek h3{font-family:var(--body);font-size:1.4rem;font-weight:700;margin:0;line-height:1.25}
+.props{display:grid;grid-template-columns:130px 1fr;gap:8px 12px;font-size:.88rem}
+.props dt{color:var(--muted)}
+.props dd{margin:0;min-width:0}
+.peek h4{margin:6px 0 0;font-size:.95rem;font-weight:700}
+.peek p{font-size:.93rem}
+
+/* knowledge base page */
+.kb{display:grid;grid-template-columns:1fr;gap:14px}
+.callout{display:flex;gap:10px;background:var(--accent-soft);border-radius:6px;padding:12px 14px;font-size:.92rem}
+.kbody p{margin-bottom:10px}
+.kbody code{font-family:ui-monospace,Menlo,monospace;font-size:.84rem;background:var(--hover);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← Back to portfolio</a>
+    <p class="eyebrow">Notion workspace · sample</p>
+    <h1>Client workspace in Notion</h1>
+    <p class="lede">How I organize a client implementation in Notion so engineers, analysts and the client all work from one place: a configuration change log that tracks every request from ask to verified, and a sourced knowledge base that keeps what we learn findable.</p>
+    <div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Maintained the Notion client pages for the team's engineers and analysts, one of 23 I kept up to date.</p></div>
+  </header>
+
+  <section aria-labelledby="log">
+    <h2 id="log">1. CRM configuration change log</h2>
+    <p>Every change to the client's CRM gets one row with a phase, area, owner, status and target date. Each row also records <b>how we'll verify it</b> and <b>why it matters</b>, so nothing is marked done until someone has tested it as a user. Click any row to open it.</p>
+
+    <div class="frame">
+      <div class="chrome"><span>Clients Hub</span><span class="sep">/</span><span>Sample Client</span><span class="sep">/</span><span>CRM Implementation</span></div>
+      <div class="page">
+        <h3>Close Configuration Changes</h3>
+        <p class="desc">Phased rollout: 1 · Recover → 2 · Audit → 3 · Stabilize → 4 · Optimize</p>
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-v="all">All changes</button>
+          <button role="tab" aria-selected="false" data-v="board">By status</button>
+          <button role="tab" aria-selected="false" data-v="open">Open issues</button>
+          <button role="tab" aria-selected="false" data-v="done">Completed</button>
+        </div>
+        <div id="view"></div>
+        <p class="count" id="count"></p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="kbh">
+    <h2 id="kbh">2. Sourced knowledge base</h2>
+    <p>Facts we learn during an engagement go into a knowledge base with a category, workstream, status and the exact source document. That way the next person starts from the primary source instead of re-asking the client or re-reading meeting transcripts.</p>
+    <div class="frame">
+      <div class="chrome"><span>Clients Hub</span><span class="sep">/</span><span>Sample Client</span><span class="sep">/</span><span>Knowledge Base</span></div>
+      <div class="page kb">
+        <h3>Field-service invoicing (install → invoice) is documented step by step; the accounting side is not</h3>
+        <dl class="props">
+          <dt>Category</dt><dd><span class="tag gray">Reference</span></dd>
+          <dt>Workstream</dt><dd><span class="tag blue">Cross-cutting</span></dd>
+          <dt>Status</dt><dd><span class="tag green">Current</span></dd>
+          <dt>Tags</dt><dd><span class="tag orange">SmartGlazier</span> <span class="tag purple">QuickBooks</span> <span class="tag gray">Cycle 1</span></dd>
+          <dt>Source</dt><dd>Process flow document from the onsite interviews (sections 9–10), corroborated by the AP change summary and the current-state process map</dd>
+        </dl>
+        <div class="kbody">
+          <p><b>Fact.</b> The current install-to-invoice process inside the field-service system is fully documented, step by step, in the process flow document from the onsite interviews.</p>
+          <p><b>Installation (steps 32–33):</b> the install team completes the job, marks items complete or incomplete with photos, and marks the work order installed. If payment is collected on site, the field app creates an invoice on the work order and takes card or ACH payment, or emails the invoice for online payment.</p>
+          <p><b>Invoicing (steps 34–36):</b> accounting monitors work orders in "Ready to Invoice" and draft invoices, verifies and sends them, and works overdue invoices by phone. Cash and check payments are entered as receipts and applied to invoices.</p>
+          <p><b>Accounting side: not documented.</b> The process map shows only that the field-service system syncs to QuickBooks daily, and that duplicate customers make the sync fail. An audit of the client's Zapier automations confirmed none of them touch QuickBooks, so the sync is a built-in feature, not Zapier glue.</p>
+        </div>
+        <div class="callout"><span aria-hidden="true">💡</span><span><b>Why it matters.</b> If anyone needs to document or audit invoicing again, start with sections 9–10 of the process flow document. The QuickBooks-side procedure remains an open documentation gap.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="why">
+    <h2 id="why">Why it works</h2>
+    <ul class="points">
+      <li><b>One source of truth.</b> The client, engineers and analysts see the same list, so status meetings start from facts instead of memory.</li>
+      <li><b>Done means verified.</b> Every change carries its own test, and the client re-checks it as a user before it closes.</li>
+      <li><b>Views for every audience.</b> The same data shows as a full table, a status board, open issues or completed work.</li>
+      <li><b>Knowledge that lasts.</b> Sourced entries mean new team members ramp up fast and nobody re-asks the client the same question.</li>
+    </ul>
+  </section>
+
+  <p class="note">Client name, people and locations are replaced with generic labels. Software names are unchanged.</p>
+  <a class="back" href="index.html">← Back to portfolio</a>
+</div>
+
+<div class="peek" id="peek" aria-hidden="true">
+  <div class="shade" data-close></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="pk-title">
+    <button class="close" data-close>Close ✕</button>
+    <h3 id="pk-title"></h3>
+    <dl class="props" id="pk-props"></dl>
+    <div id="pk-body"></div>
+  </div>
+</div>
+
+<script>
+const phaseC={"1 · Recover":"red","2 · Audit":"orange","3 · Stabilize":"yellow","4 · Optimize":"green"};
+const statusC={"Requested":"gray","Backlog":"blue","In Progress":"yellow","Blocked":"red","Completed":"green","Cancelled":"gray"};
+const areaC={"Automations & Workflows":"purple","Smart Views":"blue","Phone & Voice":"green","SMS":"red","Email":"yellow","Web Forms & Attribution":"orange","Custom Fields":"brown","Reporting":"red","Integration":"gray","Data & Records":"gray","Users & Devices":"blue","Legacy Systems":"gray","Process & Governance":"gray"};
+const rows=[
+ ["Turn off all 8 legacy Zapier zaps","1 · Recover","Automations & Workflows","Consultant","Completed","Aug 6","Confirm all 8 legacy zaps are switched off, starting with the inbound web-form zap, and record each one as confirmed off.","Zapier shows all 8 zaps off; a test web-form submission produces exactly one record.","If the web-form zap is still running, leads enter the system twice. Nothing should reach a customer or another system unless we deliberately turned it on."],
+ ["Reassign 73 opportunities to the right project managers","1 · Recover","Data & Records","Ops Manager","Completed","Aug 5","Reassign opportunities still owned by consultant accounts to the correct client project manager, working from the exported list.","No active opportunity is owned by a consultant account; each PM confirms their queue looks right.","These are real jobs, some already in production, and they stay invisible in PM queues until ownership moves."],
+ ["Fill blank opportunity values","1 · Recover","Data & Records","Consultant","Completed","Aug 6","Populate the dollar value on every opportunity currently left blank.","A view filtered to blank value returns zero active opportunities.","Blank values corrupt every pipeline total and make the outstanding-estimates figure unusable."],
+ ["Deploy and verify the mobile app for all 9 users","2 · Audit","Users & Devices","Consultant","Completed","Aug 8","App installed and logged in on every user's phone with notifications on. Each person receives a test call and text.","All 9 users confirmed installed, logged in, notifications on, test call and text received.","If the desk setup fails, the app is the backup, so it has to work on day one."],
+ ["Verify inbound call routing, greetings, voicemail and missed-call alerts","2 · Audit","Phone & Voice","Consultant","Completed","Aug 8","Call the main line and every direct line from an outside phone. Any failure goes on the punch list.","Every number rings the intended person, voicemail delivers, and missed-call alerts reach the right user.","Inbound calls are the front door. A mis-routed line is a lost lead nobody knows about."],
+ ["Verify outbound calling and text messaging","2 · Audit","Phone & Voice","Consultant","Blocked","Aug 8","Place an outbound call and send a text from the CRM. Both must log on the customer record.","Call and text appear on the customer timeline; the test text arrives on an outside phone.","Unregistered texting fails silently. Messages look sent but never arrive."],
+ ["Verify website inquiry lands with source, owner and follow-up task","2 · Audit","Web Forms & Attribution","Consultant","In Progress","Aug 8","Submit a test inquiry on the website. It must arrive as a new lead with source captured, routed to the right owner, with a follow-up task.","One lead with source, correct owner and a follow-up task.","A broken form means silent lead loss on a channel the CRM was bought to measure."],
+ ["Run one real job end to end through the CRM ↔ SmartGlazier integration","2 · Audit","Integration","Consultant","In Progress","Aug 8","Push one real job through. Stages 4–8 must advance automatically on the hourly sync; early stages, Won and Lost stay manual.","One job traced through every stage with each automatic move observed inside the sync window.","Stage movement drives the pipeline report and every aging view. If it drifts, the numbers are wrong."],
+ ["Open one punch list for every audit failure, with owner and date","2 · Audit","Process & Governance","Consultant","Completed","Aug 8","Every audit failure goes on one punch list with an owner and date. The consultant fixes; the client re-verifies.","Every item has an owner and date, and the list reaches zero open items.","The audit gate doesn't clear until the punch list is closed and the client has tested each fix as a user."],
+ ["Add lead-based routing on the main line","3 · Stabilize","Phone & Voice","Consultant","Completed","Aug 6","Calls to the main line from a lead already assigned to a PM ring that PM first, then roll to the team.","Confirmed live with a test call from an assigned lead.","Repeat customers reach their own PM, which cuts hand-offs and keeps context with the job owner."],
+ ["Daily compliance audit: quotes vs. CRM opportunities","3 · Stabilize","Reporting","Consultant","In Progress","Aug 10","A live daily comparison of quotes created in the field-service system against opportunities in the CRM, replacing a manual count.","The audit runs daily without manual effort and reconciles to a hand check.","Without a daily number, gaps are found days late. This metric shows whether coaching is working."],
+ ["Handle high-resolution customer photos over the 25 MB limit","3 · Stabilize","Email","Consultant","Requested","Aug 14","Define a process or build an automation for large photo attachments that don't sync into the CRM.","","If photos never land in the CRM, the lead record is incomplete and PMs work out of two inboxes."],
+ ["Lock the Source of Lead field to a fixed channel list","4 · Optimize","Custom Fields","Ops Manager","Completed","Aug 25","Replace free-text source with a short fixed picklist of channels.","The field accepts only the picklist options.","Free-text sources can't be rolled up when everyone spells channels differently."],
+ ["Build the daily smart views every PM opens each morning","4 · Optimize","Smart Views","Ops Manager","Requested","Aug 18","My open opportunities; estimates aging 7 / 14 / 30 days; on-hold check-ins due; yesterday's missed calls.","All four views shared to the team and confirmed by each PM.","This is where the pipeline stops living in people's heads and aging estimates become visible."],
+ ["Turn on missed-call text-back and after-hours auto-reply","4 · Optimize","SMS","Ops Manager","Requested","Aug 18","Wire the existing text templates to the missed-call trigger and set an after-hours reply.","A test missed call gets a text-back within a minute; an after-hours call gets the auto-reply.","An instant text keeps the hottest lead warm while someone calls back."],
+ ["Build the monthly source report: leads → measure → won, by channel","4 · Optimize","Reporting","Consultant","Requested","Aug 25","Leads, measure appointments and wins side by side for each channel.","First monthly report delivered to the owner without anyone asking.","The first real answer to whether the ad spend is working."],
+ ["Scope the QuickBooks integration with a committed date","4 · Optimize","Integration","Owner","Backlog","Sep 1","Automate \"invoice paid\" so won deals close themselves out.","Written scope and a committed delivery date.","Today deals sit open after the money lands, so every stage total reads high."],
+ ["Cancel legacy CRM subscriptions once exports are secured","4 · Optimize","Legacy Systems","Owner","Requested","Sep 1","Cancel both legacy tools only after exports are verified in writing.","Written export confirmation, then cancellation confirmations on file.","One system of record, and no paying for tools nobody works in. Cancelling before exporting destroys the history."]
+];
+const $=id=>document.getElementById(id);
+const tag=(t,c,s)=>`<span class="tag ${c}${s?' status':''}">${t}</span>`;
+function table(list){
+  return `<div class="tablewrap"><table><thead><tr><th>Change</th><th>Phase</th><th>Config area</th><th>Owner</th><th>Status</th><th>Target</th></tr></thead><tbody>${
+    list.map(r=>`<tr tabindex="0" data-i="${rows.indexOf(r)}"><td class="title">${r[0]}</td><td>${tag(r[1],phaseC[r[1]])}</td><td>${tag(r[2],areaC[r[2]])}</td><td>${r[3]}</td><td>${tag(r[4],statusC[r[4]],1)}</td><td>${r[5]}</td></tr>`).join('')
+  }</tbody></table></div>`;
+}
+function board(){
+  const order=["Requested","Backlog","In Progress","Blocked","Completed"];
+  return `<div class="board">${order.map(s=>{const l=rows.filter(r=>r[4]===s);return `<div class="col"><h4>${tag(s,statusC[s],1)} <span class="n">${l.length}</span></h4>${l.map(r=>`<div class="bcard" tabindex="0" data-i="${rows.indexOf(r)}"><b>${r[0]}</b><div class="row">${tag(r[1],phaseC[r[1]])}${tag(r[2],areaC[r[2]])}</div><span class="count">${r[3]} · ${r[5]}</span></div>`).join('')}</div>`}).join('')}</div>`;
+}
+function show(v){
+  let html,n;
+  if(v==='board'){html=board();n=rows.length;}
+  else{const l=v==='open'?rows.filter(r=>["Requested","Backlog","In Progress","Blocked"].includes(r[4])):v==='done'?rows.filter(r=>r[4]==='Completed'):rows;html=table(l);n=l.length;}
+  $('view').innerHTML=html; $('count').textContent=n+' changes';
+  $('view').querySelectorAll('[data-i]').forEach(el=>{el.addEventListener('click',()=>open(+el.dataset.i));el.addEventListener('keydown',e=>{if(e.key==='Enter')open(+el.dataset.i)});});
+}
+function open(i){
+  const r=rows[i];
+  $('pk-title').textContent=r[0];
+  $('pk-props').innerHTML=`<dt>Phase</dt><dd>${tag(r[1],phaseC[r[1]])}</dd><dt>Config area</dt><dd>${tag(r[2],areaC[r[2]])}</dd><dt>Owner</dt><dd>${r[3]}</dd><dt>Status</dt><dd>${tag(r[4],statusC[r[4]],1)}</dd><dt>Target date</dt><dd>${r[5]}</dd>`;
+  $('pk-body').innerHTML=`<h4>Description</h4><p>${r[6]}</p>${r[7]?`<h4>Verification</h4><p>${r[7]}</p>`:''}<h4>Why it matters</h4><p>${r[8]}</p>`;
+  $('peek').classList.add('open'); $('peek').setAttribute('aria-hidden','false'); document.querySelector('.peek .close').focus();
+}
+function closePeek(){$('peek').classList.remove('open');$('peek').setAttribute('aria-hidden','true');}
+document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closePeek));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePeek();});
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');show(b.dataset.v);}));
+show('all');
+</script>
+</body>
+</html>
