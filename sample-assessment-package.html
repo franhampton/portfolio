@@ -1,4 +1,29 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style id="pf-theme">
+:root{--accent:#3F8A96;--accent-soft:#E3F1F3;--tint:#E3F1F3;--accent-text:#2F6F79;--pf-slate:#2B3233;--pf-bright:#8FD0DA;--pf-on-slate:#C9D3D2}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#6FB8C3;--accent-soft:#1F3A3E;--tint:#1F3A3E;--accent-text:#9FD6DE;--pf-slate:#1f2526}}
+:root[data-theme="dark"]{--accent:#6FB8C3;--accent-soft:#1F3A3E;--tint:#1F3A3E;--accent-text:#9FD6DE;--pf-slate:#1f2526}
+/* slate header band */
+.wrap:has(> header:first-child){padding-top:0}
+.wrap > header:first-child{position:relative;background:var(--pf-slate);color:#E8EEEE;box-shadow:0 0 0 100vmax var(--pf-slate);clip-path:inset(0 -100vmax -4px);padding:36px 0 32px;margin-bottom:8px}
+.wrap > header:first-child::after{content:"";position:absolute;left:-100vmax;right:-100vmax;bottom:-4px;height:4px;background:var(--pf-bright)}
+.wrap > header:first-child h1{color:#ffffff}
+.wrap > header:first-child .eyebrow{color:var(--pf-bright)}
+.wrap > header:first-child .lede,.wrap > header:first-child .meta,.wrap > header:first-child p{color:var(--pf-on-slate)}
+.wrap > header:first-child a{color:var(--pf-bright)}
+header .pf-role{margin:0 !important;align-self:stretch;max-width:none !important;background:rgba(255,255,255,.07) !important;border-left-color:var(--pf-bright) !important;color:#E8EEEE !important}
+header .pf-role p{color:#E8EEEE !important}
+/* pages that open with the back link (no header) */
+body > nav.pf-back{position:relative;background:var(--pf-slate);box-shadow:0 0 0 100vmax var(--pf-slate);clip-path:inset(0 -100vmax)}
+body > nav.pf-back a{color:var(--pf-bright) !important}
+body > nav.pf-back:has(+ .pf-role-wrap){clip-path:inset(0 -100vmax)}
+body > .pf-role-wrap{position:relative;margin-top:-1px;background:var(--pf-slate);padding-bottom:22px !important;margin-bottom:12px}
+body > .pf-role-wrap::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:4px;background:var(--pf-bright)}
+body > .pf-role-wrap .pf-role{background:rgba(255,255,255,.07) !important;border-left-color:var(--pf-bright) !important;color:#E8EEEE !important}
+body > .pf-role-wrap .pf-role p{color:#E8EEEE !important}
+body > nav.pf-back:not(:has(+ .pf-role-wrap)){clip-path:inset(0 -100vmax -4px);margin-bottom:16px}
+body > nav.pf-back:not(:has(+ .pf-role-wrap))::after{content:"";position:absolute;left:-100vmax;right:-100vmax;bottom:-4px;height:4px;background:var(--pf-bright)}
+</style>
+</head><body>
 <nav class="pf-back" style="max-width:1100px;margin:0 auto;padding:16px;font:600 14px/1.4 system-ui,-apple-system,Segoe UI,sans-serif"><a href="index.html" style="color:#5f7f86;text-decoration:none">← Back to portfolio</a></nav>
 <div class="pf-role-wrap" style="padding:4px 16px 12px"><div class="pf-role" style="background:var(--accent-soft,var(--tint,#e6eeee));border-left:3px solid var(--accent,#5f7f86);border-radius:4px;padding:12px 16px;display:flex;flex-direction:column;gap:6px;font-size:.95rem;line-height:1.55;max-width:1000px;margin:0 auto;box-sizing:border-box;color:inherit"><p style="margin:0;max-width:none"><b>My role:</b> Re-branded Automized’s seven-deliverable assessment package for each client.</p></div></div>
 
@@ -49,7 +74,7 @@ p{margin:0}
 .head{display:grid;gap:8px}
 .did{font:700 13px/16px var(--slab);letter-spacing:.06em;text-transform:uppercase;color:var(--green-text)}
 .display-l{font:800 36px/38px var(--sans);text-transform:uppercase;letter-spacing:-.005em}
-.lede{max-width:68ch;color:var(--ink-muted)}
+.lede{max-width:none;color:var(--ink-muted)}
 .meta{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:6px;font:700 12px/16px var(--slab);letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1.5px solid var(--line);color:var(--ink);background:var(--surface)}
 .chip.g{background:var(--mentor-green);color:var(--on-green);border-color:var(--mentor-green)}
@@ -62,7 +87,7 @@ p{margin:0}
 .cover .hero{background:var(--night);color:var(--on-night);padding-block:48px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:24px;display:grid;gap:16px;border-bottom:4px solid var(--mentor-green)}
 .display-xl{font:800 clamp(36px,6vw,56px)/1 var(--sans);text-transform:uppercase;letter-spacing:-.01em}
 .display-xl em{font-style:normal;color:var(--mentor-green)}
-.hero p{max-width:60ch;color:#D5DFE0}
+.hero p{max-width:none;color:#D5DFE0}
 .toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1px solid var(--line)}
 .toc a{display:grid;grid-template-columns:44px 1fr;gap:4px 12px;padding:16px 24px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);color:var(--ink);text-decoration:none}
 .toc a:hover{background:var(--surface-tint)}
@@ -426,7 +451,7 @@ ul.clean.next li::before{background:transparent}
           <div class="in">
             <span class="k">Digital Operations Assessment</span>
             <h3>More matches, <span style="color:var(--mentor-green)">less re-typing</span></h3>
-            <p style="font-size:clamp(10px,1.3vw,13px);line-height:1.35;color:#D5DFE0;max-width:44ch">How work moves today, what the manual steps cost, and a twelve month plan to connect the systems the agency already owns.</p>
+            <p style="font-size:clamp(10px,1.3vw,13px);line-height:1.35;color:#D5DFE0;max-width:none">How work moves today, what the manual steps cost, and a twelve month plan to connect the systems the agency already owns.</p>
             <span class="foot">Prepared for the Executive Director · Dec 2026</span>
           </div>
         </div>

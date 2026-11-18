@@ -26,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--body);font-family:var(--body-font
 h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2;color:var(--ink)}
 h1{font-size:clamp(2.1rem,5vw,2.9rem);font-weight:300;letter-spacing:.02em;color:#fff}
 h2{font-family:"Manrope",var(--body-font);font-size:clamp(1.5rem,3vw,1.85rem);font-weight:700;letter-spacing:-.01em}
-p{margin:0;max-width:68ch}
+p{margin:0;max-width:none}
 a{color:var(--ink)}
 .hero{background:var(--band);color:#c8c8c8;border-bottom:4px solid #A9C6CB}
 .hero .in{padding-block:46px 40px;display:flex;flex-direction:column;gap:14px}
@@ -93,21 +93,26 @@ section{display:flex;flex-direction:column;gap:18px}
 @media (max-width:560px){.job{grid-template-columns:1fr}}
 
 /* teal accent */
-:root{--teal:#5F7F86;--teal-text:#4E6C72;--teal-light:#A9C6CB}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--teal:#8FB0B6;--teal-text:#A9C6CB}}
-:root[data-theme="dark"]{--teal:#8FB0B6;--teal-text:#A9C6CB}
-.stat b{color:var(--teal-light)}
-.stat{border-top-color:#4a5a5c}
-.contact a{border-bottom-color:var(--teal-light)}
-.how div{border-left-color:var(--teal)}
-.quote{border-top-color:var(--teal)}
-section > h2, .shead h2{position:relative;padding-bottom:10px}
-section > h2::after, .shead h2::after{content:"";position:absolute;left:0;bottom:0;width:44px;height:3px;border-radius:2px;background:var(--teal)}
-.resume{color:var(--teal-text);border-bottom-color:var(--teal-light)}
-.resume:hover{border-bottom-color:var(--teal)}
+:root{--teal:#3F8A96;--teal-text:#2F6F79;--teal-bright:#8FD0DA;--teal-tint:#E3F1F3;--teal-tint-ink:#23545C;--teal-wash:#F2F8F9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--teal:#6FB8C3;--teal-text:#9FD6DE;--teal-tint:#1F3A3E;--teal-tint-ink:#C4E6EB;--teal-wash:#1B2729}}
+:root[data-theme="dark"]{--teal:#6FB8C3;--teal-text:#9FD6DE;--teal-tint:#1F3A3E;--teal-tint-ink:#C4E6EB;--teal-wash:#1B2729}
+.hero{border-bottom-color:var(--teal-bright)}
+.stat b{color:var(--teal-bright);font-weight:400}
+.stat{border-top-color:#4a5f62}
+.contact a{border-bottom-color:var(--teal-bright)}
+.how div{border-left:3px solid var(--teal)}
+section > h2, .shead h2{position:relative;padding-bottom:12px}
+section > h2::after, .shead h2::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:4px;border-radius:2px;background:var(--teal)}
+.ctags span,.tags span{background:var(--teal-tint);color:var(--teal-tint-ink)}
+.feat .ctags span{background:#3E4A4B;color:#ffffff}
+.feat .body{border-top-color:var(--teal-bright)}
+.quote{background:var(--teal-wash);border-top:3px solid var(--teal)}
+.quote .who b{color:var(--teal-text)}
+.resume{color:var(--teal-text);border-bottom-color:var(--teal)}
+.resume:hover{border-bottom-color:var(--teal-text)}
 .card:hover,.card:focus-visible{border-color:var(--teal)}
 .card:focus-visible{outline-color:var(--teal)}
-.foot a{color:var(--teal-light)}
+.foot a{color:var(--teal-bright)}
 </style>
 
 <header class="hero"><div class="in">
